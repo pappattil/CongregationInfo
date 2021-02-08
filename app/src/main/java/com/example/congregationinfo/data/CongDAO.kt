@@ -6,14 +6,14 @@ import androidx.room.*
 @Dao
 interface CongDAO {
 
-    @Query("SELECT * FROM CongInfotable")
+    @Query("SELECT * FROM conginfotable")
     fun getAllInfo(): List<CongregationDataRoom>
 
     @Insert
     fun insertInfo(vararg congregationDataRoom: CongregationDataRoom)
 
-    @Delete
-    fun deleteInfo(list:CongregationDataRoom)
+    @Query("DELETE FROM conginfotable")
+    fun deleteAll()
 
 
 

@@ -23,6 +23,7 @@ import kotlin.concurrent.thread
 
 class ScrollingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScrollingBinding
+    lateinit var congInfoResult: List<List<String>>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScrollingBinding.inflate(layoutInflater)
@@ -59,11 +60,27 @@ class ScrollingActivity : AppCompatActivity() {
                         /* Ez a text változó ideiglenes, amíg nincs meg a UI.
                          ugyanakkor a következő sorban már beraktam a room-ba az adatot,
                          ahonnan majd kiszedjük a UI szerinti megjelenítéshez */
+                        //roomAddItem(congInfoResult.values, i, j)
 
-                        roomAddItem(congInfoResult.values, i, j)
                     }
                 }
 
+                        thread {
+                            AppDatabase.getInstance(this@ScrollingActivity).congDao().deleteAll()
+
+                            for(i in 0..columnSize){
+                                val rowSize = (congInfoResult.values[i].size).minus(1)
+                                for(j in 0..rowSize) {
+                            val item = CongregationDataRoom(
+                                    null,
+                                    congInfoResult.values[i][j]
+                            )
+
+                            AppDatabase.getInstance(this@ScrollingActivity).congDao().insertInfo(item)
+
+
+                        } }
+                        }
 
                 binding.easyView.text = text
             }
