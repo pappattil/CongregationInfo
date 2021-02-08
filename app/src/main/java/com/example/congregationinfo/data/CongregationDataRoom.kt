@@ -8,5 +8,5 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "CongInfotable")
 data class CongregationDataRoom(
         @PrimaryKey(autoGenerate = true) var CongInfoId : Long?,
-        @ColumnInfo(name = "valItem") var valItem: String,
+        @ColumnInfo(name = "valueItem") var valueItem: String,
 )

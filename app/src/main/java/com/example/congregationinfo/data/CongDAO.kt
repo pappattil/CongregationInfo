@@ -10,12 +10,11 @@ interface CongDAO {
     fun getAllInfo(): List<CongregationDataRoom>
 
     @Insert
-    fun insertInfo(vararg list: CongregationDataRoom): Long
+    fun insertInfo(vararg congregationDataRoom: CongregationDataRoom)
 
     @Delete
     fun deleteInfo(list:CongregationDataRoom)
 
-    @Update
-    fun updateInfo(list:CongregationDataRoom)
+
 
 }

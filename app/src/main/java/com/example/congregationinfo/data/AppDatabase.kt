@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(CongregationData::class), version = 1)
+@Database(entities = arrayOf(CongregationDataRoom::class), version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun congDao():CongDAO
@@ -14,7 +14,7 @@ abstract class AppDatabase: RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
         fun getInstance(context: Context): AppDatabase{
             if(INSTANCE==null){
-                INSTANCE= Room.databaseBuilder(context.getApplicationContext(),AppDatabase::class.java,"conginfo.db").build()
+                INSTANCE= Room.databaseBuilder(context.getApplicationContext(),AppDatabase::class.java,"conginfotable.db").build()
             }
             return INSTANCE!!
         }
