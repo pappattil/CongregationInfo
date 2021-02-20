@@ -23,7 +23,7 @@ import kotlin.concurrent.thread
 
 class ScrollingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScrollingBinding
-    lateinit var congInfoResult: List<List<String>>
+    //lateinit var congInfoResult: List<List<String>>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScrollingBinding.inflate(layoutInflater)
