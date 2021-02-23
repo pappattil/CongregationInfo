@@ -9,10 +9,14 @@
     <ScrollView
         android:id="@+id/scrollWeekday"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="80dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,12 +28,12 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="1"/>
+                app:layout_constraintWidth_percent="1" />
 
 
         </LinearLayout>
@@ -37,18 +41,24 @@
 
     <Button
         android:id="@+id/previous"
-        android:layout_width="203dp"
+        android:layout_width="115dp"
         android:layout_height="71dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="Előző"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/scrollWeekday"
+        app:layout_constraintTop_toBottomOf="@+id/scrollWeekday" />
 
     <Button
         android:id="@+id/next"
-        android:layout_width="203dp"
+        android:layout_width="115dp"
         android:layout_height="71dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Következő"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/scrollWeekday"
+        app:layout_constraintTop_toBottomOf="@+id/scrollWeekday" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
