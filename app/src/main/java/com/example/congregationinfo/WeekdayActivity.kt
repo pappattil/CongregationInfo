@@ -11,7 +11,6 @@ class WeekdayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWeekdayBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         //binding.textView2.text = Global.DataArray[1]
     }
 

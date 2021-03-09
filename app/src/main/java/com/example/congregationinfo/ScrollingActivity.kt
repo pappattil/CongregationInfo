@@ -4,6 +4,7 @@ package com.example.congregationinfo
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Message
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +22,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.concurrent.thread
-
 
 class ScrollingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScrollingBinding
@@ -85,8 +85,10 @@ class ScrollingActivity : AppCompatActivity() {
                         }
 
                 Global.DataArray = text.split(';').toTypedArray()
-                //binding.easyView.text = Global.DataArray
-                val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java)
+                binding.easyView.text = "Loading"
+                val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
+                    putExtra("intentArrayNext", 0)
+                }
                 startActivity(intent)
             }
             override fun onFailure(call: Call<CongregationData>, t: Throwable) {
