@@ -63,7 +63,6 @@ class ScrollingActivity : AppCompatActivity() {
                          ugyanakkor a következő sorban már beraktam a room-ba az adatot,
                          ahonnan majd kiszedjük a UI szerinti megjelenítéshez */
                         //roomAddItem(congInfoResult.values, i, j)
-
                     }
                 }
 
