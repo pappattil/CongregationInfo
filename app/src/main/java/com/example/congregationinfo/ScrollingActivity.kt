@@ -30,12 +30,12 @@ class ScrollingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        /*setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
-        }
+        }*/
 
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://sheets.googleapis.com")
@@ -84,14 +84,10 @@ class ScrollingActivity : AppCompatActivity() {
                         }
 
                 Global.DataArray = text.split(';').toTypedArray()
-                binding.easyView.text = "Loading"
-                val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
-                    putExtra("intentArrayNext", 0)
-                }
-                startActivity(intent)
+               //binding.easyView.text = "Loading"
             }
             override fun onFailure(call: Call<CongregationData>, t: Throwable) {
-                binding.easyView.text= t.message
+                //binding.easyView.text= t.message
             }
 
         })
@@ -99,11 +95,18 @@ class ScrollingActivity : AppCompatActivity() {
 
 
         //setContentView(R.layout.activity_scrolling)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        /*setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+        }*/
+
+        binding.startBeosztas.setOnClickListener {
+            val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
+                putExtra("intentArrayNext", 0)
+            }
+            startActivity(intent)
         }
     }
 

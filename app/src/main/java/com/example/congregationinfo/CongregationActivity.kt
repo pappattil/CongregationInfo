@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CongregationActivity : AppCompatActivity() {
@@ -17,6 +19,21 @@ class CongregationActivity : AppCompatActivity() {
 
         var IntentCount = intent.getIntExtra("intentArrayNext",0)
         buttonVisible(IntentCount)
+
+        if(IntentCount == 0)
+        {
+            var dataDate = Global.DataArray[IntentCount].substring(0,6)
+            dataDate = dataDate.replace(".","")
+
+            val dateFormat = SimpleDateFormat("MMdd")
+            val currentDate = dateFormat.format(Date())
+
+            if(dataDate < currentDate){
+                IntentCount = IntentCount+1
+                buttonVisible(IntentCount)
+            }
+        }
+
         binding.congregationTextview.text = Global.DataArray[IntentCount]
 
         binding.next.setOnClickListener {
