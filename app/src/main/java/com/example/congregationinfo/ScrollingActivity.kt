@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Message
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -30,9 +31,9 @@ class ScrollingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        /*setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        /*findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }*/
@@ -95,18 +96,25 @@ class ScrollingActivity : AppCompatActivity() {
 
 
         //setContentView(R.layout.activity_scrolling)
-        /*setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        /*findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }*/
 
         binding.startBeosztas.setOnClickListener {
-            val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
-                putExtra("intentArrayNext", 0)
+
+            if(Global.DataArray.isNotEmpty()){
+                val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
+                    putExtra("intentArrayNext", 0)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
+            else{
+                binding.startBeosztas.text = "Beosztás - Tölt"
+                //ide csinálni egy gomb alatti textview-t, ha még üres a dataarray akkor kiírni h tölt
+            }
         }
     }
 

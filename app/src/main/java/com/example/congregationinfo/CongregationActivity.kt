@@ -2,6 +2,7 @@ package com.example.congregationinfo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
@@ -18,7 +19,6 @@ class CongregationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var IntentCount = intent.getIntExtra("intentArrayNext",0)
-        buttonVisible(IntentCount)
 
         if(IntentCount == 0)
         {
@@ -30,10 +30,9 @@ class CongregationActivity : AppCompatActivity() {
 
             if(dataDate < currentDate){
                 IntentCount = IntentCount+1
-                buttonVisible(IntentCount)
             }
         }
-
+        buttonVisible(IntentCount)
         binding.congregationTextview.text = Global.DataArray[IntentCount]
 
         binding.next.setOnClickListener {
