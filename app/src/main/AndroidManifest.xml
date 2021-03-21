@@ -25,12 +25,17 @@
         <activity
             android:name=".WeekdayActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CongregationInfo.NoActionBar">
+            android:theme="@style/Theme.CongregationInfo">
         </activity>
         <activity
             android:name=".CongregationActivity"
             android:label="asd"
-            android:theme="@style/Theme.CongregationInfo.NoActionBar">
+            android:theme="@style/Theme.CongregationInfo">
+        </activity>
+        <activity
+            android:name=".NameActivity"
+            android:label="asd"
+            android:theme="@style/Theme.CongregationInfo">
         </activity>
     </application>
 

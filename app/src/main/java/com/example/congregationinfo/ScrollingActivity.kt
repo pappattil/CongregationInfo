@@ -103,18 +103,22 @@ class ScrollingActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }*/
 
-        binding.startBeosztas.setOnClickListener {
-
-            if(Global.DataArray.isNotEmpty()){
+        if(Global.DataArray.isNotEmpty()){
+            binding.startBeosztas.setOnClickListener {
                 val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
                     putExtra("intentArrayNext", 0)
                 }
                 startActivity(intent)
             }
-            else{
-                binding.startBeosztas.text = "Beosztás - Tölt"
-                //ide csinálni egy gomb alatti textview-t, ha még üres a dataarray akkor kiírni h tölt
-            }
+        }
+        else{
+            binding.startBeosztas.text = Global.Name
+            //ide csinálni egy gomb alatti textview-t, ha még üres a dataarray akkor kiírni h tölt
+        }
+
+        binding.startNev.setOnClickListener {
+            val intent = Intent(this@ScrollingActivity, NameActivity::class.java)
+            startActivity(intent)
         }
     }
 
