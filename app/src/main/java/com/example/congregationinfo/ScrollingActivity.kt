@@ -8,6 +8,7 @@ import android.os.Message
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.data.AppDatabase
 import com.example.congregationinfo.data.CongregationData
@@ -112,13 +113,7 @@ class ScrollingActivity : AppCompatActivity() {
             }
         }
         else{
-            binding.startBeosztas.text = "Frissítés szükséges! "
-            binding.startBeosztas.setOnClickListener {
-                val intent = Intent(this@ScrollingActivity, ScrollingActivity::class.java).apply {
-                    putExtra("intentArrayNext", 0)
-                }
-                startActivity(intent)
-            }
+            Toast.makeText(this@ScrollingActivity,"Frissítés folyamatban. Próbáld újra!",Toast.LENGTH_LONG).show()
         }
 
         binding.startNev.setOnClickListener {
