@@ -112,8 +112,13 @@ class ScrollingActivity : AppCompatActivity() {
             }
         }
         else{
-            binding.startBeosztas.text = Global.Name
-            //ide csinálni egy gomb alatti textview-t, ha még üres a dataarray akkor kiírni h tölt
+            binding.startBeosztas.text = "Frissítés szükséges! "
+            binding.startBeosztas.setOnClickListener {
+                val intent = Intent(this@ScrollingActivity, ScrollingActivity::class.java).apply {
+                    putExtra("intentArrayNext", 0)
+                }
+                startActivity(intent)
+            }
         }
 
         binding.startNev.setOnClickListener {
