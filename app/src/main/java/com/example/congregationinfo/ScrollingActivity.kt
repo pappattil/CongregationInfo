@@ -2,6 +2,7 @@ package com.example.congregationinfo
 
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Message
@@ -114,10 +115,12 @@ class ScrollingActivity : AppCompatActivity() {
         }
         else{
             binding.startBeosztas.setOnClickListener {
+                val activityToClose =  this@ScrollingActivity
                 val intent = Intent(this@ScrollingActivity, ScrollingActivity::class.java).apply {
                     putExtra("intentArrayNext", 0)
                 }
                 startActivity(intent)
+                activityToClose.finish()
             }
             Toast.makeText(this@ScrollingActivity,"Frissítés folyamatban. Próbáld újra!", Toast.LENGTH_LONG).show()
         }
