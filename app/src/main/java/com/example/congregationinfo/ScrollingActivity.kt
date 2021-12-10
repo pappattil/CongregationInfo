@@ -113,7 +113,13 @@ class ScrollingActivity : AppCompatActivity() {
             }
         }
         else{
-            Toast.makeText(this@ScrollingActivity,"Frissítés folyamatban. Próbáld újra!",Toast.LENGTH_LONG).show()
+            binding.startBeosztas.setOnClickListener {
+                val intent = Intent(this@ScrollingActivity, ScrollingActivity::class.java).apply {
+                    putExtra("intentArrayNext", 0)
+                }
+                startActivity(intent)
+            }
+            Toast.makeText(this@ScrollingActivity,"Frissítés folyamatban. Próbáld újra!", Toast.LENGTH_LONG).show()
         }
 
         binding.startNev.setOnClickListener {
