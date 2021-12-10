@@ -120,9 +120,9 @@ class ScrollingActivity : AppCompatActivity() {
                     putExtra("intentArrayNext", 0)
                 }
                 startActivity(intent)
+                Toast.makeText(this@ScrollingActivity,"Frissítés folyamatban. Próbáld újra!", Toast.LENGTH_LONG).show()
                 activityToClose.finish()
             }
-            Toast.makeText(this@ScrollingActivity,"Frissítés folyamatban. Próbáld újra!", Toast.LENGTH_LONG).show()
         }
 
         binding.startNev.setOnClickListener {
