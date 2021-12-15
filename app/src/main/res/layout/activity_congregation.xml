@@ -30,10 +30,11 @@
                 android:id="@+id/congregationTextview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text=""
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="1" />
+                app:layout_constraintWidth_percent="1"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
@@ -44,7 +45,8 @@
         android:layout_height="71dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Előző"
+        android:text="@string/previous"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/scrollCongregation"
         app:layout_constraintTop_toBottomOf="@+id/scrollCongregation" />
@@ -55,8 +57,20 @@
         android:layout_height="71dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Következő"
+        android:text="@string/next"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollCongregation"
         app:layout_constraintTop_toBottomOf="@+id/scrollCongregation" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollCongregation"
+        app:layout_constraintEnd_toEndOf="@+id/scrollCongregation"
+        app:layout_constraintStart_toStartOf="@+id/scrollCongregation"
+        app:layout_constraintTop_toTopOf="@+id/scrollCongregation"
+        android:visibility="visible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
