@@ -1,7 +1,9 @@
 package com.example.congregationinfo.data
 
-// result generated from /json
+import com.squareup.moshi.JsonClass
 
+// result generated from /json
+@JsonClass(generateAdapter = true)
 data class CongregationData(
     val range: String?,
     val majorDimension: String?,

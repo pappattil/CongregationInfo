@@ -1,4 +1,4 @@
-package com.example.congregationinfo
+package com.example.congregationinfo.data
 
 import android.app.Application
 

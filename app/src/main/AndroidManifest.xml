@@ -11,11 +11,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CongregationInfo">
+        android:theme="@style/Theme.CongregationInfo"
+        >
         <activity
-            android:name=".ScrollingActivity"
+            android:name=".ui.ScrollingActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CongregationInfo.NoActionBar">
+            android:theme="@style/Theme.CongregationInfo.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,18 +25,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WeekdayActivity"
+            android:name=".ui.WeekdayActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.CongregationInfo">
         </activity>
         <activity
-            android:name=".CongregationActivity"
-            android:label="asd"
+            android:name=".ui.CongregationActivity"
+            android:label="Beosztás"
             android:theme="@style/Theme.CongregationInfo">
         </activity>
         <activity
-            android:name=".NameActivity"
-            android:label="asd"
+            android:name=".ui.NameActivity"
+            android:label="Felhasználó"
             android:theme="@style/Theme.CongregationInfo">
         </activity>
     </application>

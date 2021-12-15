@@ -1,5 +1,5 @@
 package com.example.congregationinfo.data
-
+/*
 import androidx.room.*
 
 
@@ -15,6 +15,6 @@ interface CongDAO {
     @Query("DELETE FROM conginfotable")
     fun deleteAll()
 
-
-
 }
+
+ */

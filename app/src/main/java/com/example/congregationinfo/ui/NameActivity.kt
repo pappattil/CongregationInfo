@@ -1,9 +1,10 @@
-package com.example.congregationinfo
+package com.example.congregationinfo.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import androidx.appcompat.app.AppCompatActivity
+import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.ActivityNameBinding
 
 class NameActivity : AppCompatActivity() {

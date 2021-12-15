@@ -1,10 +1,10 @@
-package com.example.congregationinfo
+package com.example.congregationinfo.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,16 +36,11 @@ class CongregationActivity : AppCompatActivity() {
         binding.congregationTextview.text = Global.DataArray[IntentCount]
 
         binding.next.setOnClickListener {
-            /*HAGYD BENNE KÉSŐBB AZ ACTIVITYWEEKEND ACTIVITYWEEKDAY-HEZ EZ FOG KELLENI SZTEM
-            changeActivity(IntentCount+1);*/
             IntentCount = IntentCount+1
             buttonVisible(IntentCount)
             binding.congregationTextview.text = Global.DataArray[IntentCount]
         }
         binding.previous.setOnClickListener {
-            /* SZINTÉN HAGYD
-            changeActivity(IntentCount-1);
-            }*/
             IntentCount = IntentCount-1
             buttonVisible(IntentCount)
             binding.congregationTextview.text = Global.DataArray[IntentCount]

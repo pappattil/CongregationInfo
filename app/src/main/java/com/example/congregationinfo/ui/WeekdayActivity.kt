@@ -1,4 +1,4 @@
-package com.example.congregationinfo
+package com.example.congregationinfo.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
