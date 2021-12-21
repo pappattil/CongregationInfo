@@ -98,6 +98,7 @@ class CongregationActivity : AppCompatActivity() {
                 binding.congregationTextview.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
                 binding.congregationTextview.text = Global.DataArray[0]
+                buttonVisible(0)
             }
 
             is congregationResponseError -> {
