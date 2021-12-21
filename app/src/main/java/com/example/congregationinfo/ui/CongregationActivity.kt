@@ -105,6 +105,8 @@ class CongregationActivity : AppCompatActivity() {
                 binding.congregationTextview.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
                 binding.congregationTextview.text=result.exceptionMSG
+                binding.previous.visibility= View.GONE
+                binding.next.visibility= View.GONE
             }
 
         }
