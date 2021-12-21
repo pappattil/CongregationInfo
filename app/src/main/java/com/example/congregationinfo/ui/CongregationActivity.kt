@@ -24,8 +24,10 @@ class CongregationActivity : AppCompatActivity() {
 
         val congregationViewModel: CongregationViewModel by viewModels()
 
-        congregationViewModel.getCongregationData().observe(this,
-            { congregationViewState -> render(congregationViewState) })
+        congregationViewModel.getCongregationLiveData().observe(this,
+            {congregationResult -> render(congregationResult)})
+
+        congregationViewModel.getCongregationData()
 
             binding.next.setOnClickListener {
                 intentCount = intentCount + 1

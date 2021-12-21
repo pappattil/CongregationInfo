@@ -7,6 +7,9 @@ import com.example.congregationinfo.ui.CongregationViewState
 import com.example.congregationinfo.ui.congregationResponseError
 import com.example.congregationinfo.ui.congregationResponseSuccess
 import com.example.congregationinfo.ui.inProgress
+import com.example.congregationinfo.util.NetworkError
+import com.example.congregationinfo.util.NetworkResult
+import com.example.congregationinfo.util.NetworkSuccess
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,25 +17,21 @@ import retrofit2.Response
 
 object CongregationNetworkDataSource {
 
-    fun getCongregationDataFromNetwork(): MutableLiveData<CongregationViewState> {
-        val call = RetrofitClient.apiInterface.getData("AIzaSyA4gXS5fL81WnHO98SiwsmBGiYb9V1ceQQ")
-        //googleAPI.getData("AIzaSyA4gXS5fL81WnHO98SiwsmBGiYb9V1ceQQ")
+    suspend fun getCongregationDataFromNetwork(): NetworkResult<Any> {
+        try {
+            val response =
+                RetrofitClient.apiInterface.getData("AIzaSyA4gXS5fL81WnHO98SiwsmBGiYb9V1ceQQ")
+            //googleAPI.getData("AIzaSyA4gXS5fL81WnHO98SiwsmBGiYb9V1ceQQ")
 
-        val congregationResultData = MutableLiveData<CongregationViewState>()
-        congregationResultData.value=inProgress
-
-        call.enqueue(object: Callback<CongregationData> {
-            override fun onResponse(
-                call: Call<CongregationData>,
-                response: Response<CongregationData>
-            ) {
-                congregationResultData.value= congregationResponseSuccess(response.body()!!)
+            response?.let {
+                return NetworkSuccess(it.body()!!)
             }
-
-            override fun onFailure(call: Call<CongregationData>, t: Throwable) {
-                congregationResultData.value= congregationResponseError(t.message.toString())
-            }
-        })
-        return  congregationResultData
+            return NetworkError(Exception("No data"))
+        }catch (e:Exception) {
+            return NetworkError(e)
+        }
     }
 }
+
+
+
