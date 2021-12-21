@@ -8,7 +8,7 @@ import com.example.congregationinfo.repository.CongregationRepository
 class CongregationViewModel: ViewModel() {
     private var congregationRepository: CongregationRepository = CongregationRepository()
 
-    fun getCongregationData() : LiveData<CongregationData>{
+    fun getCongregationData() : LiveData<CongregationViewState>{
         return congregationRepository.getCongregationData()
     }
 }

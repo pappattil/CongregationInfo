@@ -14,7 +14,7 @@
         android:theme="@style/Theme.CongregationInfo"
         >
         <activity
-            android:name=".ui.ScrollingActivity"
+            android:name=".ui.StartActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.CongregationInfo.NoActionBar"
             android:exported="true">
@@ -23,11 +23,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.WeekdayActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.CongregationInfo">
         </activity>
         <activity
             android:name=".ui.CongregationActivity"

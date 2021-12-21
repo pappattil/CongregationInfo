@@ -1,5 +1,5 @@
 package com.example.congregationinfo.data
-/*
+
 import androidx.room.*
 
 
@@ -17,4 +17,3 @@ interface CongDAO {
 
 }
 
- */

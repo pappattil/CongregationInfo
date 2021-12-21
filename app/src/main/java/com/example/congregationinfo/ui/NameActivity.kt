@@ -20,7 +20,7 @@ class NameActivity : AppCompatActivity() {
         binding.save.setOnClickListener {
             if(binding.textviewName.text.isNotEmpty()){
                 Global.Name = binding.textviewName.text.toString()
-                val intent = Intent(this@NameActivity, ScrollingActivity::class.java)
+                val intent = Intent(this@NameActivity, StartActivity::class.java)
                 startActivity(intent)
             }
         }

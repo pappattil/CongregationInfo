@@ -12,7 +12,7 @@ import com.example.congregationinfo.databinding.ActivityScrollingBinding
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
-class ScrollingActivity : AppCompatActivity() {
+class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScrollingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class ScrollingActivity : AppCompatActivity() {
 
 
         binding.startBeosztas.setOnClickListener {
-            val intent = Intent(this@ScrollingActivity, CongregationActivity::class.java).apply {
+            val intent = Intent(this@StartActivity, CongregationActivity::class.java).apply {
                 putExtra("intentArrayNext", 0)
             }
             startActivity(intent)
@@ -36,7 +36,7 @@ class ScrollingActivity : AppCompatActivity() {
 
 
         binding.startNev.setOnClickListener {
-            val intent = Intent(this@ScrollingActivity, NameActivity::class.java)
+            val intent = Intent(this@StartActivity, NameActivity::class.java)
             startActivity(intent)
         }
     }
