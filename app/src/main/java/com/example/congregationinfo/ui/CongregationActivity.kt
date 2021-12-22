@@ -7,8 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class CongregationActivity : AppCompatActivity() {
@@ -30,12 +28,12 @@ class CongregationActivity : AppCompatActivity() {
         congregationViewModel.getCongregationData()
 
             binding.next.setOnClickListener {
-                intentCount = intentCount + 1
+                intentCount += 1
                 buttonVisible(intentCount)
                 binding.congregationTextview.text = Global.DataArray[intentCount]
             }
             binding.previous.setOnClickListener {
-                intentCount = intentCount - 1
+                intentCount -= 1
                 buttonVisible(intentCount)
                 binding.congregationTextview.text = Global.DataArray[intentCount]
             }
@@ -62,22 +60,24 @@ class CongregationActivity : AppCompatActivity() {
     }
 */
 
-    fun buttonVisible(actual: Int) {
-        if(actual == 0){
-            binding.previous.visibility= View.GONE
-            binding.next.visibility= View.VISIBLE
-        }
-        else if(Global.DataArray.count() == actual+2){
-            binding.previous.visibility= View.VISIBLE
-            binding.next.visibility= View.GONE
-        }
-        else{
-            binding.previous.visibility= View.VISIBLE
-            binding.next.visibility= View.VISIBLE
+    private fun buttonVisible(actual: Int) {
+        when {
+            actual == 0 -> {
+                binding.previous.visibility= View.GONE
+                binding.next.visibility= View.VISIBLE
+            }
+            Global.DataArray.count() == actual+2 -> {
+                binding.previous.visibility= View.VISIBLE
+                binding.next.visibility= View.GONE
+            }
+            else -> {
+                binding.previous.visibility= View.VISIBLE
+                binding.next.visibility= View.VISIBLE
+            }
         }
     }
 
-    fun render(result: CongregationViewState){
+    private fun render(result: CongregationViewState){
         when(result){
             is inProgress ->{
                 binding.congregationTextview.visibility = View.GONE
