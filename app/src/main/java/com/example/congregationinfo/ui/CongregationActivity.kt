@@ -41,7 +41,7 @@ class CongregationActivity : AppCompatActivity() {
             }
 
     }
-
+/*
     fun globalToTextview(intentCount: Int): Int {
         var intentCount1 = intentCount
         if (intentCount1 == 0) {
@@ -60,7 +60,7 @@ class CongregationActivity : AppCompatActivity() {
         binding.congregationTextview.text = Global.DataArray[intentCount1]
         return intentCount1
     }
-
+*/
 
     fun buttonVisible(actual: Int) {
         if(actual == 0){

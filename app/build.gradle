@@ -53,7 +53,7 @@ dependencies {
    // implementation 'com.google.code.gson:gson:2.8.6'
    // implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
-    def room_version = "2.3.0"
+    def room_version = "2.4.0"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -66,7 +66,7 @@ dependencies {
 
     def moshi_version = '1.13.0'
     def retrofit_version = '2.9.0'
-    def logging_version = "3.14.9"
+    def logging_version = "4.3.1"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     implementation "com.squareup.moshi:moshi:$moshi_version"
