@@ -33,11 +33,13 @@ class CongregationActivity : AppCompatActivity() {
                 intentCount += 1
                 buttonVisible(intentCount)
                 binding.congregationTextview.text = Global.DataArray[intentCount]
+                changeTitle()
             }
             binding.previous.setOnClickListener {
                 intentCount -= 1
                 buttonVisible(intentCount)
                 binding.congregationTextview.text = Global.DataArray[intentCount]
+                changeTitle()
             }
 
     }
@@ -83,6 +85,7 @@ class CongregationActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 binding.congregationTextview.text = Global.DataArray[0]
                 buttonVisible(0)
+                changeTitle()
             }
 
             is congregationResponseError -> {
@@ -113,4 +116,8 @@ class CongregationActivity : AppCompatActivity() {
         }
     }
 
+    private fun changeTitle() {
+        var titleToShow = binding.congregationTextview.text.split("\n\n")
+        setTitle(titleToShow[0])
+    }
 }
