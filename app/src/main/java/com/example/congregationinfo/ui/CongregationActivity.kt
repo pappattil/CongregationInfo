@@ -1,8 +1,10 @@
 package com.example.congregationinfo.ui
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.data.Global
@@ -39,26 +41,6 @@ class CongregationActivity : AppCompatActivity() {
             }
 
     }
-/*
-    fun globalToTextview(intentCount: Int): Int {
-        var intentCount1 = intentCount
-        if (intentCount1 == 0) {
-            var dataDate = Global.DataArray[intentCount1].substring(0, 6)
-            dataDate = dataDate.replace(".", "")
-
-            val dateFormat = SimpleDateFormat("MMdd")
-            val currentDate = dateFormat.format(Date())
-
-            if (dataDate < currentDate) {
-                intentCount1 = intentCount1 + 1
-            }
-        }
-
-        buttonVisible(intentCount1)
-        binding.congregationTextview.text = Global.DataArray[intentCount1]
-        return intentCount1
-    }
-*/
 
     private fun buttonVisible(actual: Int) {
         when {
@@ -104,11 +86,28 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is congregationResponseError -> {
-                binding.congregationTextview.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
-                binding.congregationTextview.text=result.exceptionMSG
                 binding.previous.visibility= View.GONE
                 binding.next.visibility= View.GONE
+                binding.congregationTextview.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
+                    if(result.exceptionMSG=="timeout"){
+                        val activityToClose =  this@CongregationActivity
+                        val intent = Intent(this@CongregationActivity, CongregationActivity::class.java).apply {
+                            putExtra("intentArrayNext", 0)
+                        }
+                        startActivity(intent)
+                        activityToClose.finish()
+                        Toast.makeText(this@CongregationActivity,"Rendszerüzenet:\ntimeout"+result.exceptionMSG, Toast.LENGTH_LONG).show()
+
+                    }else {
+                        val activityToClose =  this@CongregationActivity
+                        val intent = Intent(this@CongregationActivity, StartActivity::class.java)
+                        startActivity(intent)
+                        activityToClose.finish()
+                        Toast.makeText(this@CongregationActivity,"Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n"+result.exceptionMSG, Toast.LENGTH_LONG).show()
+
+                    }
+
             }
 
         }
