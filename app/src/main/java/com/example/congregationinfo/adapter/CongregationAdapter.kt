@@ -54,7 +54,7 @@ class CongregationAdapter(var context: Context, var resultItems: List<List<Strin
             holder.row.text = listItem.value
 
         }
-        holder.row.setTextColor(Color.BLACK)
+        //holder.row.setTextColor(Color.BLACK)
 
     }
 
