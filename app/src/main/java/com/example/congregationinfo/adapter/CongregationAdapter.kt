@@ -5,23 +5,22 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.congregationinfo.data.CongregationData
+import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.CongregationRowBinding
 
 
-class CongregationAdapter(var context: Context, var resultItems: List<List<String>>?) : RecyclerView.Adapter<CongregationAdapter.ViewHolder>() {
+class CongregationAdapter(var context: Context, resultItems: List<String>) : RecyclerView.Adapter<CongregationAdapter.ViewHolder>() {
 
 
-    private var congItems = mutableListOf<CongregationData>()
-    private var counter:Int
+    private var congItems = mutableListOf<String>()
+
     init {
+        congItems.addAll(resultItems.toMutableList())
 
-        addAll(resultItems)
-        counter =0
 
     }
-
-    fun addAll(resultItems: List<List<String>>?) {
+/*
+    fun addAll(resultItems: List<String>?) {
         val columnSize = (resultItems?.size)?.minus(1)
         for (i in 0..columnSize!!) {
             val rowSize = (resultItems[i].size).minus(1)
@@ -30,7 +29,7 @@ class CongregationAdapter(var context: Context, var resultItems: List<List<Strin
             }
         }
     }
-
+*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CongregationRowBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -47,16 +46,23 @@ class CongregationAdapter(var context: Context, var resultItems: List<List<Strin
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listItem = congItems[position]
 
-        if (listItem.value == ";") {
+        if (listItem == ";") {
             holder.row.text = " "
         }
         else {
-            holder.row.text = listItem.value
+            holder.row.text = listItem
 
         }
+        if (Global.Name != "" && holder.row.text == Global.Name) holder.row.setTextColor(
+            Color.CYAN)
+        else holder.row.setTextColor(
+            Color.WHITE)
+            //holder.row.setTextColor(Color.BLUE)
         //holder.row.setTextColor(Color.BLACK)
+      // holder.itemView.setBackgroundColor(Color.BLUE)
 
     }
+
 
     inner class ViewHolder(binding: CongregationRowBinding) : RecyclerView.ViewHolder(binding.root){
         var row = binding.tvRow

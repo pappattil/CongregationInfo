@@ -9,26 +9,35 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.adapter.CongregationAdapter
-import com.example.congregationinfo.data.CongregationData
-import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
 
 
 class CongregationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCongregationBinding
     private lateinit var congAdapter: CongregationAdapter
-    private lateinit var  values : List<List<String>>
+    var congList=listOf("")
+    //private lateinit var  values : List<List<String>>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCongregationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val congregationViewModel: CongregationViewModel by viewModels()
-
+        var viewCounter=1
         congregationViewModel.getCongregationLiveData().observe(this,
             {congregationResult -> render(congregationResult)})
 
         congregationViewModel.getCongregationData()
+        //viewChange(viewCounter)
+        binding.next.setOnClickListener {
+            viewCounter ++
+            viewChange(viewCounter)
+        }
+
+        binding.previous.setOnClickListener {
+            viewCounter--
+            viewChange(viewCounter)
+        }
 
     }
 
@@ -41,11 +50,21 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is congregationResponseSuccess -> {
+                val columnSize = (result.data.values?.size)?.minus(1)
+                for (i in 0..columnSize!!) {
+                    val rowSize = (result.data.values[i].size).minus(1)
+                    for (j in 0..rowSize) {
+                        congList = congList+listOf(result.data.values[i][j])
+                    }
+                }
 
-                congAdapter = CongregationAdapter(this,result.data.values)
-                binding.congregationRecyclerview.adapter = congAdapter
+                //congAdapter = CongregationAdapter(this,result.data.values)
+                //binding.congregationRecyclerview.adapter = congAdapter
                 binding.congregationTextview.visibility = View.GONE
                 binding.progressBar.visibility = View.GONE
+                binding.next.visibility = View.VISIBLE
+                viewChange(viewCounter = 1)
+
 
             }
 
@@ -75,4 +94,56 @@ class CongregationActivity : AppCompatActivity() {
         }
     }
 
+    fun viewChange(viewCounter: Int) {
+        var start=0
+        var end=0
+        var spCongList= listOf("")
+
+        when (viewCounter) {
+            1 -> {
+                binding.next.visibility= View.VISIBLE
+                binding.previous.visibility= View.GONE
+                start=2
+                end=55
+            }
+            2 ->{
+                binding.previous.visibility= View.VISIBLE
+                start=56
+                end=89
+            }
+            3 ->{
+                start=90
+                end=140
+            }
+            4 ->{
+                start=141
+                end=174
+            }
+            5 ->{
+                start=175
+                end=228
+            }
+            6 ->{
+                start=229
+                end=262
+            }
+            7 ->{
+                binding.next.visibility= View.VISIBLE
+                start=263
+                end=315
+            }
+            8 ->{
+                binding.next.visibility= View.GONE
+                binding.previous.visibility= View.VISIBLE
+                start=316
+                end=congList.lastIndex
+            }
+        }
+        for(i in start..end) spCongList = spCongList + listOf(congList[i])
+
+        congAdapter = CongregationAdapter(this,spCongList)
+        binding.congregationRecyclerview.adapter = congAdapter
+        binding.congregationTextview.visibility = View.GONE
+
+    }
 }
