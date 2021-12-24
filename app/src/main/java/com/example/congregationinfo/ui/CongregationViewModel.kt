@@ -4,7 +4,7 @@ package com.example.congregationinfo.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.congregationinfo.data.CongregationData
+import com.example.congregationinfo.data.CongregationJsonData
 import com.example.congregationinfo.repository.CongregationRepository
 import com.example.congregationinfo.util.NetworkError
 import com.example.congregationinfo.util.NetworkSuccess
@@ -25,7 +25,7 @@ class CongregationViewModel: ViewModel() {
             val response = congregationRepository.getCongregationData()
             when(response){
                 is NetworkSuccess -> {
-                    val congresult = response.result as CongregationData
+                    val congresult = response.result as CongregationJsonData
                     result.postValue(congregationResponseSuccess(congresult))
                 }
                 is NetworkError -> {

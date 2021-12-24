@@ -1,7 +1,7 @@
 package com.example.congregationinfo.network
 
 
-import com.example.congregationinfo.data.CongregationData
+import com.example.congregationinfo.data.CongregationJsonData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,7 +19,7 @@ import retrofit2.http.Query
 //   ?key=AIzaSyA4gXS5fL81WnHO98SiwsmBGiYb9V1ceQQ
 
 interface GoogleAPI {
-    @GET("/v4/spreadsheets/13vaiSoZkld08eLdHqtNcFQdwjJxFm7tXAZu4KviuI-I/values/0!B2:F105")
-    suspend fun getData(@Query("key") key: String): Response<CongregationData>?
+    @GET("/v4/spreadsheets/13vaiSoZkld08eLdHqtNcFQdwjJxFm7tXAZu4KviuI-I/values/0!B2:F141")
+    suspend fun getData(@Query("key") key: String): Response<CongregationJsonData>?
 
 }

@@ -31,7 +31,7 @@ class StartActivity : AppCompatActivity() {
             val intent = Intent(this@StartActivity, CongregationActivity::class.java).apply {
                 putExtra("intentArrayNext", 0)
             }
-
+println("Start")
             startActivity(intent)
         }
 
