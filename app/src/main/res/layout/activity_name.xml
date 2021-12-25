@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.StartActivity"
+    tools:context=".ui.ui.StartActivity"
     android:layout_margin="20dp">
 
     <TextView
@@ -15,15 +15,17 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    
+
     <EditText
         android:id="@+id/textviewName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="@dimen/app_bar_height"
+        android:autofillHints="Name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:layout_width="match_parent"

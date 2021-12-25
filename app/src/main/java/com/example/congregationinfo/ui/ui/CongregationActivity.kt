@@ -1,4 +1,4 @@
-package com.example.congregationinfo.ui
+package com.example.congregationinfo.ui.ui
 
 
 import android.annotation.SuppressLint
@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.congregationinfo.adapter.CongregationAdapter
+import com.example.congregationinfo.ui.adapter.CongregationAdapter
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
 
 
@@ -16,7 +16,7 @@ class CongregationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCongregationBinding
     private lateinit var congAdapter: CongregationAdapter
     var congList=listOf("")
-    //private lateinit var  values : List<List<String>>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCongregationBinding.inflate(layoutInflater)
@@ -28,7 +28,7 @@ class CongregationActivity : AppCompatActivity() {
             {congregationResult -> render(congregationResult)})
 
         congregationViewModel.getCongregationData()
-        //viewChange(viewCounter)
+
         binding.next.setOnClickListener {
             viewCounter ++
             viewChange(viewCounter)
@@ -45,7 +45,7 @@ class CongregationActivity : AppCompatActivity() {
     private fun render(result: CongregationViewState){
         when(result){
             is inProgress ->{
-                binding.congregationTextview.visibility = View.GONE
+
                 binding.progressBar.visibility = View.VISIBLE
             }
 
@@ -58,9 +58,8 @@ class CongregationActivity : AppCompatActivity() {
                     }
                 }
 
-                //congAdapter = CongregationAdapter(this,result.data.values)
-                //binding.congregationRecyclerview.adapter = congAdapter
-                binding.congregationTextview.visibility = View.GONE
+
+
                 binding.progressBar.visibility = View.GONE
                 binding.next.visibility = View.VISIBLE
                 viewChange(viewCounter = 1)
@@ -71,7 +70,7 @@ class CongregationActivity : AppCompatActivity() {
             is congregationResponseError -> {
                 binding.previous.visibility= View.GONE
                 binding.next.visibility= View.GONE
-                binding.congregationTextview.visibility = View.VISIBLE
+
                 binding.progressBar.visibility = View.GONE
                     if(result.exceptionMSG=="timeout"){
                         val activityToClose =  this@CongregationActivity
@@ -143,7 +142,6 @@ class CongregationActivity : AppCompatActivity() {
 
         congAdapter = CongregationAdapter(this,spCongList)
         binding.congregationRecyclerview.adapter = congAdapter
-        binding.congregationTextview.visibility = View.GONE
 
     }
 }

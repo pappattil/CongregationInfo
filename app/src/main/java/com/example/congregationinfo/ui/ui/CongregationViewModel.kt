@@ -1,4 +1,4 @@
-package com.example.congregationinfo.ui
+package com.example.congregationinfo.ui.ui
 
 
 import androidx.lifecycle.MutableLiveData

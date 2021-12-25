@@ -1,4 +1,4 @@
-package com.example.congregationinfo.ui
+package com.example.congregationinfo.ui.ui
 
 
 
@@ -28,10 +28,7 @@ class StartActivity : AppCompatActivity() {
 
 
         binding.startBeosztas.setOnClickListener {
-            val intent = Intent(this@StartActivity, CongregationActivity::class.java).apply {
-                putExtra("intentArrayNext", 0)
-            }
-println("Start")
+            val intent = Intent(this@StartActivity, CongregationActivity::class.java)
             startActivity(intent)
         }
 

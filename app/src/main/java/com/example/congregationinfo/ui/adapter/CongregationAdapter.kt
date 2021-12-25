@@ -1,4 +1,4 @@
-package com.example.congregationinfo.adapter
+package com.example.congregationinfo.ui.adapter
 
 import android.content.Context
 import android.graphics.Color
@@ -19,17 +19,7 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
 
 
     }
-/*
-    fun addAll(resultItems: List<String>?) {
-        val columnSize = (resultItems?.size)?.minus(1)
-        for (i in 0..columnSize!!) {
-            val rowSize = (resultItems[i].size).minus(1)
-            for (j in 0..rowSize) {
-                congItems.add(CongregationData((resultItems[i][j])))
-            }
-        }
-    }
-*/
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CongregationRowBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -57,10 +47,12 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
             Color.CYAN)
         else holder.row.setTextColor(
             Color.WHITE)
-            //holder.row.setTextColor(Color.BLUE)
-        //holder.row.setTextColor(Color.BLACK)
-      // holder.itemView.setBackgroundColor(Color.BLUE)
+       /*
+        when(holder.row.text){
+            "" -> holder.row.setBackgroundColor()
+        }
 
+        */
     }
 
 

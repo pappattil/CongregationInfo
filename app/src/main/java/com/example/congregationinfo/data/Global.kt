@@ -1,11 +1,12 @@
 package com.example.congregationinfo.data
 
 import android.app.Application
+import androidx.room.ColumnInfo
 
 class Global : Application() {
     companion object {
-        @JvmField
-        var DataArray = emptyArray<String>()
+        var firstStartCounter=0
         var Name = ""
+        var HARDD_CODE="3197"
     }
 }
