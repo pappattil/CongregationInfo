@@ -32,7 +32,7 @@
             android:theme="@style/Theme.CongregationInfo"/>
         <activity
             android:name=".ui.ui.NameActivity"
-            android:label="Felhasználó"
+            android:label="Felhasználó neve"
             android:theme="@style/Theme.CongregationInfo" />
     </application>
 

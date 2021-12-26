@@ -5,16 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ui.StartActivity"
-    android:layout_margin="20dp">
+    android:layout_margin="20dp"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
+    android:paddingTop="60dp">
 
     <TextView
+        android:id="@+id/nameLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Név megadása"
-        app:layout_constraintBottom_toTopOf="@+id/textviewName"
+        app:layout_constraintBottom_toTopOf="@+id/warningLabel"
         android:layout_marginBottom="20dp"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <TextView
+        android:id="@+id/warningLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A hivatalos nevedet add meg ékezetek és nagybetűk használatával, csak így fogja felismerni a program!"
+        app:layout_constraintBottom_toTopOf="@+id/textviewName"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#F00"/>
 
     <EditText
         android:id="@+id/textviewName"
@@ -35,6 +48,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textviewName"
         android:layout_marginBottom="20dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
