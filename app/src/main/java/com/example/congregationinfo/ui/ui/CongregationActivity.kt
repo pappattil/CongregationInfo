@@ -15,10 +15,13 @@ import java.util.*
 
 
 class CongregationActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityCongregationBinding
     private lateinit var congAdapter: CongregationAdapter
+
     private var congList=listOf("")
     private var viewCounter=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCongregationBinding.inflate(layoutInflater)
@@ -107,7 +110,7 @@ class CongregationActivity : AppCompatActivity() {
             dataDate = dataDate.replace(".","")
             val dateFormat = SimpleDateFormat("MMdd")
             val currentDate = dateFormat.format(Date())
-            if(dataDate < currentDate) viewCounter =2
+            if(dataDate < currentDate) viewCounter =2 else viewCounter=1
         }
 
         when (viewCounter) {
