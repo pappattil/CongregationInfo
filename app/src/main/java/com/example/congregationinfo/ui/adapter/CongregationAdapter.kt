@@ -43,7 +43,7 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
             holder.row.text = listItem
 
         }
-        if (Global.Name != "" && holder.row.text == Global.Name) holder.row.setTextColor(
+        if (Global.Name != "" && holder.row.text.toString().lowercase() == Global.Name.lowercase()) holder.row.setTextColor(
             Color.CYAN)
         else holder.row.setTextColor(
             Color.WHITE)
