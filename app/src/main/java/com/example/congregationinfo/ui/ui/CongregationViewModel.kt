@@ -19,17 +19,17 @@ class CongregationViewModel: ViewModel() {
     fun getCongregationLiveData()=result
 
     fun getCongregationData() {
-        result.value = inProgress
+        result.value = InProgress
 
         viewModelScope.launch(Dispatchers.IO){
             val response = congregationRepository.getCongregationData()
             when(response){
                 is NetworkSuccess -> {
                     val congresult = response.result as CongregationJsonData
-                    result.postValue(congregationResponseSuccess(congresult))
+                    result.postValue(CongregationResponseSuccess(congresult))
                 }
                 is NetworkError -> {
-                    result.postValue(congregationResponseError(response.errorMessage.message!!))
+                    result.postValue(CongregationResponseError(response.errorMessage.message!!))
                 }
             }
         }

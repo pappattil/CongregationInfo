@@ -8,22 +8,25 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.congregationinfo.ui.adapter.CongregationAdapter
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
+import com.example.congregationinfo.ui.adapter.CongregationAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CongregationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCongregationBinding
     private lateinit var congAdapter: CongregationAdapter
-    var congList=listOf("")
-
+    private var congList=listOf("")
+    private var viewCounter=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCongregationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val congregationViewModel: CongregationViewModel by viewModels()
-        var viewCounter=1
+
+
         congregationViewModel.getCongregationLiveData().observe(this,
             {congregationResult -> render(congregationResult)})
 
@@ -31,12 +34,12 @@ class CongregationActivity : AppCompatActivity() {
 
         binding.next.setOnClickListener {
             viewCounter ++
-            viewChange(viewCounter)
+            viewChange()
         }
 
         binding.previous.setOnClickListener {
             viewCounter--
-            viewChange(viewCounter)
+            viewChange()
         }
 
     }
@@ -44,12 +47,12 @@ class CongregationActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun render(result: CongregationViewState){
         when(result){
-            is inProgress ->{
+            is InProgress ->{
 
                 binding.progressBar.visibility = View.VISIBLE
             }
 
-            is congregationResponseSuccess -> {
+            is CongregationResponseSuccess -> {
                 val columnSize = (result.data.values?.size)?.minus(1)
                 for (i in 0..columnSize!!) {
                     val rowSize = (result.data.values[i].size).minus(1)
@@ -62,12 +65,12 @@ class CongregationActivity : AppCompatActivity() {
 
                 binding.progressBar.visibility = View.GONE
                 binding.next.visibility = View.VISIBLE
-                viewChange(viewCounter = 1)
+                viewChange()
 
 
             }
 
-            is congregationResponseError -> {
+            is CongregationResponseError -> {
                 binding.previous.visibility= View.GONE
                 binding.next.visibility= View.GONE
 
@@ -93,10 +96,19 @@ class CongregationActivity : AppCompatActivity() {
         }
     }
 
-    fun viewChange(viewCounter: Int) {
+    @SuppressLint("SimpleDateFormat")
+    private fun viewChange() {
         var start=0
         var end=0
         var spCongList= listOf("")
+
+        if (viewCounter==0){
+            var dataDate = congList[0]
+            dataDate = dataDate.replace(".","")
+            val dateFormat = SimpleDateFormat("MMdd")
+            val currentDate = dateFormat.format(Date())
+            if(dataDate < currentDate) viewCounter =2
+        }
 
         when (viewCounter) {
             1 -> {
@@ -106,6 +118,7 @@ class CongregationActivity : AppCompatActivity() {
                 end=55
             }
             2 ->{
+                binding.previous.visibility= View.VISIBLE
                 binding.previous.visibility= View.VISIBLE
                 start=56
                 end=89

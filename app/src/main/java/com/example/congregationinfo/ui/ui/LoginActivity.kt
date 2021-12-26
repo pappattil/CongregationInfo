@@ -48,26 +48,32 @@ class LoginActivity : AppCompatActivity() {
         binding.loginTextView.text="HARDD_CODE = 3197"
 
         binding.btnLogin.setOnClickListener {
-            if(Global.HARDD_CODE == binding.etLogin.text.toString()){
-                thread{
-                    val congRoom = CongregationDataRoom(null,"",1,"3197")
-                    AppDatabase.getInstance(this@LoginActivity).congDao().deleteAll()
-                    AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoom)
+            when {
 
+                Global.HARDD_CODE == binding.etLogin.text.toString() -> {
+                    thread{
+                        val congRoom = CongregationDataRoom(null,"",1,"3197")
+                        AppDatabase.getInstance(this@LoginActivity).congDao().deleteAll()
+                        AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoom)
+                    }
+                    Global.firstStartCounter = 1
+                    nextActivity(Intent(this@LoginActivity,NameActivity::class.java))
                 }
-                Global.firstStartCounter = 1
-                nextActivity(Intent(this@LoginActivity,NameActivity::class.java))
-            }
-            else if(Global.firstStartCounter > 10) {
-                binding.loginTextView.text="Túl sokszor adtál meg helytelen kódot. "
-                binding.btnLogin.visibility = View.GONE
-                binding.textInputLayout.visibility = View.GONE
-                binding.loginTextView.visibility = View.VISIBLE
 
-            }else{
-                Global.firstStartCounter++
-                Toast.makeText(this, "Nem megfelelő kód!\n ",Toast.LENGTH_LONG).show()
+                Global.firstStartCounter > 10 -> {
+                    binding.loginTextView.text="Túl sokszor adtál meg helytelen kódot. "
+                    binding.btnLogin.visibility = View.GONE
+                    binding.textInputLayout.visibility = View.GONE
+                    binding.loginTextView.visibility = View.VISIBLE
+                }
+
+                else -> {
+                    Global.firstStartCounter++
+                    Toast.makeText(this, "Nem megfelelő kód!\n ",Toast.LENGTH_LONG).show()
+                }
+
             }
+
         }
 
     }

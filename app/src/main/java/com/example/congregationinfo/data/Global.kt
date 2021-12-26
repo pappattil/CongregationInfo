@@ -1,7 +1,6 @@
 package com.example.congregationinfo.data
 
 import android.app.Application
-import androidx.room.ColumnInfo
 
 class Global : Application() {
     companion object {
