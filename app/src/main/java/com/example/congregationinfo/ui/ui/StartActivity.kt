@@ -26,12 +26,10 @@ class StartActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }*/
 
-
         binding.startBeosztas.setOnClickListener {
             val intent = Intent(this@StartActivity, CongregationActivity::class.java)
             startActivity(intent)
         }
-
 
         binding.startNev.setOnClickListener {
             val intent = Intent(this@StartActivity, NameActivity::class.java)

@@ -35,14 +35,14 @@ class LoginActivity : AppCompatActivity() {
             runOnUiThread {
                 if(Global.firstStartCounter==1) {
                     nextActivity(Intent(this@LoginActivity,StartActivity::class.java))
-                    }
-                    else{
-                        binding.progressBarLogin.visibility=View.GONE
-                        binding.btnLogin.visibility = View.VISIBLE
-                        binding.textInputLayout.visibility = View.VISIBLE
-                        binding.loginTextView.visibility = View.VISIBLE
-                    }
                 }
+                else{
+                    binding.progressBarLogin.visibility=View.GONE
+                    binding.btnLogin.visibility = View.VISIBLE
+                    binding.textInputLayout.visibility = View.VISIBLE
+                    binding.loginTextView.visibility = View.VISIBLE
+                }
+            }
         }
 
         binding.loginTextView.text="HARDD_CODE = 3197"

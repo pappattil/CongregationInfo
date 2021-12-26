@@ -29,7 +29,6 @@ class CongregationActivity : AppCompatActivity() {
 
         val congregationViewModel: CongregationViewModel by viewModels()
 
-
         congregationViewModel.getCongregationLiveData().observe(this,
             {congregationResult -> render(congregationResult)})
 
@@ -44,14 +43,12 @@ class CongregationActivity : AppCompatActivity() {
             viewCounter--
             viewChange()
         }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun render(result: CongregationViewState){
         when(result){
             is InProgress ->{
-
                 binding.progressBar.visibility = View.VISIBLE
             }
 
@@ -64,13 +61,9 @@ class CongregationActivity : AppCompatActivity() {
                     }
                 }
 
-
-
                 binding.progressBar.visibility = View.GONE
                 binding.next.visibility = View.VISIBLE
                 viewChange()
-
-
             }
 
             is CongregationResponseError -> {
@@ -78,24 +71,20 @@ class CongregationActivity : AppCompatActivity() {
                 binding.next.visibility= View.GONE
 
                 binding.progressBar.visibility = View.GONE
-                    if(result.exceptionMSG=="timeout"){
-                        val activityToClose =  this@CongregationActivity
-                        val intent = Intent(this@CongregationActivity, CongregationActivity::class.java)
-                        startActivity(intent)
-                        activityToClose.finish()
-                        Toast.makeText(this@CongregationActivity,"Rendszerüzenet:\ntimeout"+result.exceptionMSG+"\n", Toast.LENGTH_LONG).show()
-
-                    }else {
-                        val activityToClose =  this@CongregationActivity
-                        val intent = Intent(this@CongregationActivity, StartActivity::class.java)
-                        startActivity(intent)
-                        activityToClose.finish()
-                        Toast.makeText(this@CongregationActivity,"Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n"+result.exceptionMSG, Toast.LENGTH_LONG).show()
-
-                    }
-
+                if(result.exceptionMSG=="timeout"){
+                    val activityToClose =  this@CongregationActivity
+                    val intent = Intent(this@CongregationActivity, CongregationActivity::class.java)
+                    startActivity(intent)
+                    activityToClose.finish()
+                    Toast.makeText(this@CongregationActivity,"Rendszerüzenet:\ntimeout"+result.exceptionMSG+"\n", Toast.LENGTH_LONG).show()
+                }else {
+                    val activityToClose =  this@CongregationActivity
+                    val intent = Intent(this@CongregationActivity, StartActivity::class.java)
+                    startActivity(intent)
+                    activityToClose.finish()
+                    Toast.makeText(this@CongregationActivity,"Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n"+result.exceptionMSG, Toast.LENGTH_LONG).show()
+                }
             }
-
         }
     }
 
