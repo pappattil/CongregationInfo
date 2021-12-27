@@ -14,9 +14,13 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
         private var ministryItems = mutableListOf<MinistryData>()
 
         init {
-            ministryItems.addAll(resultItems)
-
-
+            var checkedResultItems = listOf<MinistryData>()
+            for (i in 0..resultItems.size-1) {
+                if(resultItems[i].date != "-" && resultItems[i].time != " " && resultItems[i].place != " " && resultItems[i].group != " " && resultItems[i].conductor != " "){
+                    checkedResultItems =  checkedResultItems + resultItems[i]
+                }
+            }
+            ministryItems.addAll(checkedResultItems)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,8 +34,6 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
             return ministryItems.size
         }
 
-
-
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val listItem = ministryItems[position]
             holder.tvDate.text = listItem.date
@@ -41,16 +43,13 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
             holder.tvPlace.text = listItem.place
         }
 
-
         inner class ViewHolder(binding: MinistryRowBinding) : RecyclerView.ViewHolder(binding.root){
             var tvDate = binding.tvDate
             var tvConductor = binding.tvConductor
             var tvHour = binding.tvHour
             var tvPlace = binding.tvPlace
             var tvGroup = binding.tvGroup
-
         }
-
     }
 
 

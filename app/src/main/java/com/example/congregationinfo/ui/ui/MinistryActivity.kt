@@ -17,10 +17,8 @@ class MinistryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMinistryBinding
     private lateinit var ministryAdapter: MinistryAdapter
 
-
     private var ministryList: Array<Array<String>> = arrayOf(
         arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,26 +27,20 @@ class MinistryActivity : AppCompatActivity() {
 
         val congregationViewModel: CongregationViewModel by viewModels()
 
-
         congregationViewModel.getCongregationLiveData().observe(this,
             { congregationResult -> render(congregationResult) })
 
         congregationViewModel.getCongregationData()
-
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun render(result: CongregationViewState) {
         when (result) {
             is InProgress -> {
-
                 binding.pbMinistry.visibility = View.VISIBLE
             }
 
             is CongregationResponseSuccess -> {
-
                 var k=0
                 val columnSize = (result.data.values?.size)?.minus(1)
                 for (i in 0..columnSize!!) {
@@ -61,14 +53,14 @@ class MinistryActivity : AppCompatActivity() {
                 var spCongList = listOf<MinistryData>()
 
                 for(i in 1..11 step 5){
-println("XXXXX____"+MinistryData(
-    null,
-    ministryList[1][i],
-    ministryList[1][i+1],
-    ministryList[1][i+2],
-    ministryList[1][i+3],
-    ministryList[1][i+4]
-))
+                    println("XXXXX____"+MinistryData(
+                        null,
+                        ministryList[1][i],
+                        ministryList[1][i+1],
+                        ministryList[1][i+2],
+                        ministryList[1][i+3],
+                        ministryList[1][i+4]
+                    ))
                     spCongList = spCongList + listOf(
                         MinistryData(
                             null,
@@ -81,8 +73,6 @@ println("XXXXX____"+MinistryData(
                     )
                 }
 
-
-
                 binding.pbMinistry.visibility = View.GONE
                 binding.rvMinistry.visibility = View.VISIBLE
                  //for (i in 348..congList.last().toInt() ) spCongList = spCongList + listOf(congList[i])
@@ -90,8 +80,6 @@ println("XXXXX____"+MinistryData(
                 ministryAdapter = MinistryAdapter(this, spCongList)
                 binding.rvMinistry.adapter = ministryAdapter
                 //viewChange()
-
-
             }
 
             is CongregationResponseError -> {
@@ -109,7 +97,6 @@ println("XXXXX____"+MinistryData(
                         "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
                         Toast.LENGTH_LONG
                     ).show()
-
                 } else {
                     val activityToClose = this@MinistryActivity
                     val intent = Intent(this@MinistryActivity, StartActivity::class.java)
@@ -120,11 +107,8 @@ println("XXXXX____"+MinistryData(
                         "Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n" + result.exceptionMSG,
                         Toast.LENGTH_LONG
                     ).show()
-
                 }
-
             }
-
         }
     }
 /*

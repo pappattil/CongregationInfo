@@ -71,11 +71,8 @@ class LoginActivity : AppCompatActivity() {
                     Global.firstStartCounter++
                     Toast.makeText(this, "Nem megfelelő kód!\n ",Toast.LENGTH_LONG).show()
                 }
-
             }
-
         }
-
     }
 
     private fun nextActivity(intent: Intent) {

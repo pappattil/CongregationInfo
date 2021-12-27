@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.congregationinfo.data.Global
+import com.example.congregationinfo.data.MinistryData
 import com.example.congregationinfo.databinding.CongregationRowBinding
 
 
@@ -15,9 +16,18 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
     private var congItems = mutableListOf<String>()
 
     init {
-        congItems.addAll(resultItems.toMutableList())
-
-
+        var checkedResultItems = listOf<String>()
+        for (i in 0..resultItems.size-1) {
+            if(i == 0 || i == 1) {
+                if (resultItems[i] != "") {
+                    checkedResultItems = checkedResultItems + resultItems[i]
+                }
+            }
+            else{
+                checkedResultItems =  checkedResultItems + resultItems[i]
+            }
+        }
+        congItems.addAll(checkedResultItems.toMutableList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,8 +41,6 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
         return congItems.size
     }
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listItem = congItems[position]
 
@@ -41,7 +49,6 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
         }
         else {
             holder.row.text = listItem
-
         }
         if (Global.Name != "" && holder.row.text.toString().lowercase() == Global.Name.lowercase()) holder.row.setTextColor(
             Color.CYAN)
@@ -55,11 +62,9 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
         */
     }
 
-
     inner class ViewHolder(binding: CongregationRowBinding) : RecyclerView.ViewHolder(binding.root){
         var row = binding.tvRow
 
     }
-
 }
 
