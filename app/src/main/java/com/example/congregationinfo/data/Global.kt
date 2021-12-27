@@ -4,8 +4,8 @@ import android.app.Application
 
 class Global : Application() {
     companion object {
-        @JvmField
-        var DataArray = emptyArray<String>()
+        var firstStartCounter=0
         var Name = ""
+        var HARDD_CODE="3197"
     }
 }

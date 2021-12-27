@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.StartActivity" >
+    android:background="@color/black"
+    tools:context=".ui.ui.StartActivity" >
 
     <ScrollView
         android:id="@+id/scrollCongregation"
@@ -26,15 +27,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/congregationTextview"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/congregationRecyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="1"
-                android:visibility="gone"/>
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                android:textSize="24sp"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </LinearLayout>
     </ScrollView>
@@ -75,4 +76,6 @@
         app:layout_constraintStart_toStartOf="@+id/scrollCongregation"
         app:layout_constraintTop_toTopOf="@+id/scrollCongregation"
         android:visibility="visible"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
