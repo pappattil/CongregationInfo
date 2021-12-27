@@ -8,16 +8,16 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.R
-import com.example.congregationinfo.databinding.ActivityScrollingBinding
+import com.example.congregationinfo.databinding.ActivityStartBinding
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
 class StartActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityScrollingBinding
+    private lateinit var binding: ActivityStartBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityScrollingBinding.inflate(layoutInflater)
+        binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
@@ -26,13 +26,18 @@ class StartActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }*/
 
-        binding.startBeosztas.setOnClickListener {
+        binding.btnCongregation.setOnClickListener {
             val intent = Intent(this@StartActivity, CongregationActivity::class.java)
             startActivity(intent)
         }
 
-        binding.startNev.setOnClickListener {
+        binding.btnName.setOnClickListener {
             val intent = Intent(this@StartActivity, NameActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnMinisry.setOnClickListener {
+            val intent = Intent(this@StartActivity, MinistryActivity::class.java)
             startActivity(intent)
         }
     }
