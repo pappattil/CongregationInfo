@@ -5,6 +5,7 @@
     android:id="@+id/ministryRow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     card_view:cardBackgroundColor="#3B56D8"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="4dp">
