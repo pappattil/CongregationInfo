@@ -51,7 +51,7 @@ class MinistryActivity : AppCompatActivity() {
                     }
                 }
                 var spCongList = listOf<MinistryData>()
-                for(i in 1..11 step 5){
+                for(i in 1..31 step 5){
                     spCongList = spCongList + listOf(
                         MinistryData(
                             null,
