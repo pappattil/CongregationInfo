@@ -44,10 +44,16 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
             holder.tvHour.text = listItem.time
             holder.tvPlace.text = listItem.place
 
-            if (Global.Name != "" && holder.tvConductor.text.toString().lowercase() == Global.Name.lowercase()) holder.tvConductor.setTextColor(
-                Color.RED)
-            else holder.tvConductor.setTextColor(
-                Color.WHITE)
+            if (Global.Name != "" && holder.tvConductor.text.toString().lowercase() == Global.Name.lowercase()) {
+                holder.tvConductor.setTextColor(Color.RED)
+            }
+            else {
+                holder.tvConductor.setTextColor(Color.WHITE)
+                holder.tvDate.setTextColor(Color.WHITE)
+                holder.tvGroup.setTextColor(Color.WHITE)
+                holder.tvHour.setTextColor(Color.WHITE)
+                holder.tvPlace.setTextColor(Color.WHITE)
+            }
         }
 
         inner class ViewHolder(binding: MinistryRowBinding) : RecyclerView.ViewHolder(binding.root){
