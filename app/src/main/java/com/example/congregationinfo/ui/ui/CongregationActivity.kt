@@ -8,10 +8,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.congregationinfo.data.AppDatabase
+import com.example.congregationinfo.data.CongregationDataRoom
+import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.ActivityCongregationBinding
 import com.example.congregationinfo.ui.adapter.CongregationAdapter
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
 
 class CongregationActivity : AppCompatActivity() {
@@ -57,20 +61,20 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is CongregationResponseSuccess -> {
-
-                var k=0
-                val columnSize = (result.data.values?.size)?.minus(1)
-                for (i in 0..columnSize!!) {
-                    val rowSize = (result.data.values[i].size).minus(1)
-                    for (j in 0..rowSize) {
-                        congList[k] += arrayOf(result.data.values[i][j])
-                        if(result.data.values[i][j] == ";")k++
-                    }
+                Global.resultDate = Date().toString()
+               // Global.resultValues = result.data.values!!
+                thread{
+                    val congRoom = CongregationDataRoom(null,
+                        Global.name,
+                        Global.firstStartCounter,
+                        Global.HARDD_CODE,
+                        Global.resultDate,
+                        //Global.resultValues.toCollection(String)
+                    )
+                    AppDatabase.getInstance(this@CongregationActivity).congDao().deleteAll()
+                    AppDatabase.getInstance(this@CongregationActivity).congDao().insertInfo(congRoom)
                 }
-
-                binding.progressBar.visibility = View.GONE
-                binding.next.visibility = View.VISIBLE
-                viewChange()
+                dataHandler(result.data.values!!)
             }
 
             is CongregationResponseError -> {
@@ -93,6 +97,22 @@ class CongregationActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun dataHandler(values: List<List<String>>) {
+        var k = 0
+        val columnSize = (values.size).minus(1)
+        for (i in 0..columnSize) {
+            val rowSize = (values[i].size).minus(1)
+            for (j in 0..rowSize) {
+                congList[k] += arrayOf(values[i][j])
+                if (values[i][j] == ";") k++
+            }
+        }
+
+        binding.progressBar.visibility = View.GONE
+        binding.next.visibility = View.VISIBLE
+        viewChange()
     }
 
     @SuppressLint("SimpleDateFormat")

@@ -18,13 +18,13 @@ class NameActivity : AppCompatActivity() {
         binding = ActivityNameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.textviewName.text = Editable.Factory.getInstance().newEditable(Global.Name)
+        binding.textviewName.text = Editable.Factory.getInstance().newEditable(Global.name)
 
         binding.save.setOnClickListener {
             if(binding.textviewName.text.isNotEmpty()){
-                Global.Name = binding.textviewName.text.toString()
+                Global.name = binding.textviewName.text.toString()
                 thread{
-                    val congRoom = CongregationDataRoom(null,Global.Name,Global.firstStartCounter,Global.HARDD_CODE)
+                    val congRoom = CongregationDataRoom(null,Global.name,Global.firstStartCounter,Global.HARDD_CODE,Global.resultDate)
                     AppDatabase.getInstance(this@NameActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@NameActivity).congDao().insertInfo(congRoom)
                 }

@@ -24,13 +24,16 @@ class LoginActivity : AppCompatActivity() {
                 congRoomAll =
                 AppDatabase.getInstance(this@LoginActivity).congDao().getAllInfo().last()
             }catch(e: Exception){
-                congRoomAll= CongregationDataRoom(null,"",0,"3197")
+                congRoomAll= CongregationDataRoom(null,"",0,"3197",Global.resultDate)
                 AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoomAll)
             }
 
-            Global.Name = congRoomAll.name
+            Global.name = congRoomAll.name
             Global.firstStartCounter = congRoomAll.firstStartCounter
             Global.HARDD_CODE = congRoomAll.hardCode
+            Global.resultDate = congRoomAll.updateDate
+            //Global.resultValues=congRoomAll.resultValues
+
 
             runOnUiThread {
                 if(Global.firstStartCounter==1) {
@@ -52,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
                 Global.HARDD_CODE == binding.etLogin.text.toString() -> {
                     thread{
-                        val congRoom = CongregationDataRoom(null,"",1,"3197")
+                        val congRoom = CongregationDataRoom(null,"",1,"3197",Global.resultDate)
                         AppDatabase.getInstance(this@LoginActivity).congDao().deleteAll()
                         AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoom)
                     }
