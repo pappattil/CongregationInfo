@@ -4,12 +4,8 @@ package com.example.congregationinfo.ui.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.congregationinfo.R
 import com.example.congregationinfo.databinding.ActivityStartBinding
-import com.google.android.material.appbar.CollapsingToolbarLayout
 
 
 class StartActivity : AppCompatActivity() {
@@ -19,12 +15,14 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(findViewById(R.id.toolbar))
+/*        setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-        /*findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+       findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
-        }*/
+        }
+*/
+
 
         binding.btnCongregation.setOnClickListener {
             val intent = Intent(this@StartActivity, CongregationActivity::class.java)
@@ -34,6 +32,7 @@ class StartActivity : AppCompatActivity() {
         binding.btnName.setOnClickListener {
             val intent = Intent(this@StartActivity, NameActivity::class.java)
             startActivity(intent)
+
         }
 
         binding.btnMinisry.setOnClickListener {
@@ -41,7 +40,7 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+/*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_scrolling, menu)
@@ -58,4 +57,5 @@ class StartActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+*/
 }

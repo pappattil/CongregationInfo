@@ -28,12 +28,20 @@ class NameActivity : AppCompatActivity() {
                     AppDatabase.getInstance(this@NameActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@NameActivity).congDao().insertInfo(congRoom)
                 }
-                val activityToClose = this@NameActivity
-                //val intent = Intent(this@LoginActivity,StartActivity::class.java )
-                val intent = Intent(this@NameActivity, StartActivity::class.java)
-                startActivity(intent)
-                activityToClose.finish()
+                newActivityClearStack()
             }
         }
+    }
+
+    private fun newActivityClearStack() {
+        val activityToClose = this@NameActivity
+        val intent = Intent(this@NameActivity, StartActivity::class.java)
+        startActivity(intent)
+        activityToClose.finishAffinity()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        newActivityClearStack()
     }
 }
