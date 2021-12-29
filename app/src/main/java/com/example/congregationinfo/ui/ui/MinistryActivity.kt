@@ -43,7 +43,7 @@ class MinistryActivity : AppCompatActivity() {
 
             is CongregationResponseSuccess -> {
                 Global.resultDate = Date().toString()
-                //Global.resultValues = result.data.values!!
+                Global.resultValues = result.data.values!!
                 thread {
                     val congRoom = CongregationDataRoom(
                         null,
@@ -51,12 +51,12 @@ class MinistryActivity : AppCompatActivity() {
                         Global.firstStartCounter,
                         Global.HARDD_CODE,
                         Global.resultDate,
-                       // Global.resultValues!!
+                        Global.resultValues
                     )
                     AppDatabase.getInstance(this@MinistryActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@MinistryActivity).congDao().insertInfo(congRoom)
                 }
-                dataHandler(result.data.values!!)
+                dataHandler(result.data.values)
             }
 
             is CongregationResponseError -> {
@@ -76,19 +76,24 @@ class MinistryActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
                 }else{
-
-                    val activityToClose = this@MinistryActivity
-                    val intent = Intent(this@MinistryActivity, StartActivity::class.java)
-                    startActivity(intent)
-                    activityToClose.finish()
                     Toast.makeText(
                         this@MinistryActivity,
-                        "Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n" + result.exceptionMSG,
+                        "Ellenőrizd az internetkapcsolatot!\n\nLegutóbbi frissítés::\n" + Global.resultDate,
                         Toast.LENGTH_LONG
                     ).show()
+                    if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
+                    else newStartActivity()
+
                 }
             }
         }
+    }
+
+    private fun newStartActivity() {
+        val activityToClose = this@MinistryActivity
+        val intent = Intent(this@MinistryActivity, StartActivity::class.java)
+        startActivity(intent)
+        activityToClose.finishAffinity()
     }
 
     private fun dataHandler(values: List<List<String>>) {
@@ -101,10 +106,10 @@ class MinistryActivity : AppCompatActivity() {
                 if (values[i][j] == "/n") k++
             }
         }
-        var spCongList = listOf<MinistryData>()
+        var spMinistryList = listOf<MinistryData>()
 
         for (i in 1..ministryList[1].lastIndex step 5) {
-            spCongList = spCongList + listOf(
+            spMinistryList = spMinistryList + listOf(
                 MinistryData(
                     null,
                     ministryList[1][i],
@@ -119,7 +124,12 @@ class MinistryActivity : AppCompatActivity() {
         binding.pbMinistry.visibility = View.GONE
         binding.rvMinistry.visibility = View.VISIBLE
 
-        ministryAdapter = MinistryAdapter(this, spCongList)
+        ministryAdapter = MinistryAdapter(this, spMinistryList)
         binding.rvMinistry.adapter = ministryAdapter
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        newStartActivity()
     }
 }

@@ -2,15 +2,18 @@ package com.example.congregationinfo.ui.ui
 
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.ActivityStartBinding
 
 
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
@@ -22,7 +25,7 @@ class StartActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 */
-
+        if (Global.resultDate != "") binding.tvDataStatus.text="Adatbázis frissítve:\n"+Global.resultDate
 
         binding.btnCongregation.setOnClickListener {
             val intent = Intent(this@StartActivity, CongregationActivity::class.java)

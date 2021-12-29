@@ -8,7 +8,6 @@ class Global : Application() {
         var name = ""
         var HARDD_CODE="3197"
         var resultDate=""
-        var resultValues : List<List<String>>? = null
-
+        var resultValues: List<List<String>> = emptyList()
     }
 }

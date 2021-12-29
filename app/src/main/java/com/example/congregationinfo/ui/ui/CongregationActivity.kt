@@ -62,19 +62,19 @@ class CongregationActivity : AppCompatActivity() {
 
             is CongregationResponseSuccess -> {
                 Global.resultDate = Date().toString()
-               // Global.resultValues = result.data.values!!
+               Global.resultValues = result.data.values!!
                 thread{
                     val congRoom = CongregationDataRoom(null,
                         Global.name,
                         Global.firstStartCounter,
                         Global.HARDD_CODE,
                         Global.resultDate,
-                        //Global.resultValues.toCollection(String)
+                        Global.resultValues
                     )
                     AppDatabase.getInstance(this@CongregationActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@CongregationActivity).congDao().insertInfo(congRoom)
                 }
-                dataHandler(result.data.values!!)
+                dataHandler(result.data.values)
             }
 
             is CongregationResponseError -> {
@@ -89,11 +89,13 @@ class CongregationActivity : AppCompatActivity() {
                     activityToClose.finish()
                     //Toast.makeText(this@CongregationActivity,"Rendszerüzenet:\ntimeout"+result.exceptionMSG+"\n", Toast.LENGTH_LONG).show()
                 }else {
-                    val activityToClose =  this@CongregationActivity
-                    val intent = Intent(this@CongregationActivity, StartActivity::class.java)
-                    startActivity(intent)
-                    activityToClose.finish()
-                    Toast.makeText(this@CongregationActivity,"Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n"+result.exceptionMSG, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@CongregationActivity,
+                        "Ellenőrizd az internetkapcsolatot!\n\nLegutóbbi frissítés::\n" + Global.resultDate,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
+                    else newStartActivity()
                 }
             }
         }
@@ -153,5 +155,17 @@ class CongregationActivity : AppCompatActivity() {
         congAdapter = CongregationAdapter(this,spCongList)
         binding.congregationRecyclerview.adapter = congAdapter
 
+    }
+
+    private fun newStartActivity() {
+        val activityToClose = this@CongregationActivity
+        val intent = Intent(this@CongregationActivity, StartActivity::class.java)
+        startActivity(intent)
+        activityToClose.finishAffinity()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        newStartActivity()
     }
 }
