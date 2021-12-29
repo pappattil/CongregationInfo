@@ -25,7 +25,7 @@ class StartActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 */
-        if (Global.resultDate != "") binding.tvDataStatus.text="Adatbázis frissítve:\n"+Global.resultDate
+        if (Global.resultDate != "") binding.tvDataStatus.text="Adatok frissítve:\n"+Global.resultDate
 
         binding.btnCongregation.setOnClickListener {
             val intent = Intent(this@StartActivity, CongregationActivity::class.java)

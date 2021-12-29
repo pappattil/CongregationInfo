@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.data.*
 import com.example.congregationinfo.databinding.ActivityMinistryBinding
 import com.example.congregationinfo.ui.adapter.MinistryAdapter
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -42,7 +43,8 @@ class MinistryActivity : AppCompatActivity() {
             }
 
             is CongregationResponseSuccess -> {
-                Global.resultDate = Date().toString()
+                val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+                Global.resultDate = date
                 Global.resultValues = result.data.values!!
                 thread {
                     val congRoom = CongregationDataRoom(

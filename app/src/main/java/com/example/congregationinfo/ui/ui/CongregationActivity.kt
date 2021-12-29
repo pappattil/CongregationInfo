@@ -61,8 +61,9 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is CongregationResponseSuccess -> {
-                Global.resultDate = Date().toString()
-               Global.resultValues = result.data.values!!
+                val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+                Global.resultDate = date
+                Global.resultValues = result.data.values!!
                 thread{
                     val congRoom = CongregationDataRoom(null,
                         Global.name,
