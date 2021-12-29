@@ -1,9 +1,11 @@
 package com.example.congregationinfo.ui.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.data.MinistryData
 import com.example.congregationinfo.databinding.MinistryRowBinding
 
@@ -15,7 +17,7 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
 
         init {
             var checkedResultItems = listOf<MinistryData>()
-            for (i in 0..resultItems.size-1) {
+            for (i in resultItems.indices) {
                 if(resultItems[i].date != "-" && resultItems[i].time != " " && resultItems[i].place != " " && resultItems[i].group != " " && resultItems[i].conductor != " "){
                     checkedResultItems =  checkedResultItems + resultItems[i]
                 }
@@ -41,6 +43,17 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
             holder.tvGroup.text = listItem.group
             holder.tvHour.text = listItem.time
             holder.tvPlace.text = listItem.place
+
+            if (Global.name != "" && holder.tvConductor.text.toString().lowercase() == Global.name.lowercase()) {
+                holder.tvConductor.setTextColor(Color.RED)
+            }
+            else {
+                holder.tvConductor.setTextColor(Color.WHITE)
+                holder.tvDate.setTextColor(Color.WHITE)
+                holder.tvGroup.setTextColor(Color.WHITE)
+                holder.tvHour.setTextColor(Color.WHITE)
+                holder.tvPlace.setTextColor(Color.WHITE)
+            }
         }
 
         inner class ViewHolder(binding: MinistryRowBinding) : RecyclerView.ViewHolder(binding.root){

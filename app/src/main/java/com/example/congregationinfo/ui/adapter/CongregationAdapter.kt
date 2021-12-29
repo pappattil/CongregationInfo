@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.congregationinfo.data.Global
-import com.example.congregationinfo.data.MinistryData
 import com.example.congregationinfo.databinding.CongregationRowBinding
 
 
@@ -17,7 +16,7 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
 
     init {
         var checkedResultItems = listOf<String>()
-        for (i in 0..resultItems.size-1) {
+        for (i in resultItems.indices) {
             if(i == 0 || i == 1) {
                 if (resultItems[i] != "") {
                     checkedResultItems = checkedResultItems + resultItems[i]
@@ -50,7 +49,7 @@ class CongregationAdapter(var context: Context, resultItems: List<String>) : Rec
         else {
             holder.row.text = listItem
         }
-        if (Global.Name != "" && holder.row.text.toString().lowercase() == Global.Name.lowercase()) holder.row.setTextColor(
+        if (Global.name != "" && holder.row.text.toString().lowercase() == Global.name.lowercase()) holder.row.setTextColor(
             Color.CYAN)
         else holder.row.setTextColor(
             Color.WHITE)

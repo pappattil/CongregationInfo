@@ -17,14 +17,18 @@
         app:layout_constraintBottom_toTopOf="@+id/progressBarLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:passwordToggleEnabled="true"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Hardcode"
-            android:inputType="textWebPassword" />
+            android:textSize="24sp"
+            android:inputType="textWebPassword"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -33,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="TextView"
+        android:textSize="24sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"

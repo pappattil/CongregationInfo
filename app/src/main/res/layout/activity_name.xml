@@ -14,42 +14,45 @@
         android:id="@+id/nameLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:textSize="24sp"
         android:text="Név megadása"
         app:layout_constraintBottom_toTopOf="@+id/warningLabel"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/warningLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="A hivatalos nevedet add meg ékezetek és nagybetűk használatával, csak így fogja felismerni a program!"
+        android:textColor="#F00"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textviewName"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="#F00"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/textviewName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="@dimen/app_bar_height"
+        android:layout_marginTop="140dp"
         android:autofillHints="Name"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Mentés"
-        app:layout_constraintTop_toBottomOf="@+id/textviewName"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textviewName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

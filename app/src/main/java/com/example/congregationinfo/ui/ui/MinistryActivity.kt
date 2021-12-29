@@ -7,10 +7,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.congregationinfo.data.MinistryData
+import com.example.congregationinfo.data.*
 import com.example.congregationinfo.databinding.ActivityMinistryBinding
 import com.example.congregationinfo.ui.adapter.MinistryAdapter
 import java.util.*
+import kotlin.concurrent.thread
 
 class MinistryActivity : AppCompatActivity() {
 
@@ -41,48 +42,25 @@ class MinistryActivity : AppCompatActivity() {
             }
 
             is CongregationResponseSuccess -> {
-                var k=0
-                val columnSize = (result.data.values?.size)?.minus(1)
-                for (i in 0..columnSize!!) {
-                    val rowSize = (result.data.values[i].size).minus(1)
-                    for (j in 0..rowSize) {
-                        ministryList[k] += arrayOf(result.data.values[i][j])
-                        if(result.data.values[i][j] == "/n")k++
-                    }
-                }
-                var spCongList = listOf<MinistryData>()
-
-                for(i in 1..11 step 5){
-                    println("XXXXX____"+MinistryData(
+                Global.resultDate = Date().toString()
+                Global.resultValues = result.data.values!!
+                thread {
+                    val congRoom = CongregationDataRoom(
                         null,
-                        ministryList[1][i],
-                        ministryList[1][i+1],
-                        ministryList[1][i+2],
-                        ministryList[1][i+3],
-                        ministryList[1][i+4]
-                    ))
-                    spCongList = spCongList + listOf(
-                        MinistryData(
-                            null,
-                            ministryList[1][i],
-                            ministryList[1][i+1],
-                            ministryList[1][i+2],
-                            ministryList[1][i+3],
-                            ministryList[1][i+4]
-                        )
+                        Global.name,
+                        Global.firstStartCounter,
+                        Global.HARDD_CODE,
+                        Global.resultDate,
+                        Global.resultValues
                     )
+                    AppDatabase.getInstance(this@MinistryActivity).congDao().deleteAll()
+                    AppDatabase.getInstance(this@MinistryActivity).congDao().insertInfo(congRoom)
                 }
-
-                binding.pbMinistry.visibility = View.GONE
-                binding.rvMinistry.visibility = View.VISIBLE
-                 //for (i in 348..congList.last().toInt() ) spCongList = spCongList + listOf(congList[i])
-
-                ministryAdapter = MinistryAdapter(this, spCongList)
-                binding.rvMinistry.adapter = ministryAdapter
-                //viewChange()
+                dataHandler(result.data.values)
             }
 
             is CongregationResponseError -> {
+
                 binding.rvMinistry.visibility = View.GONE
                 binding.btnBack.visibility = View.GONE
 
@@ -97,81 +75,61 @@ class MinistryActivity : AppCompatActivity() {
                         "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
                         Toast.LENGTH_LONG
                     ).show()
-                } else {
-                    val activityToClose = this@MinistryActivity
-                    val intent = Intent(this@MinistryActivity, StartActivity::class.java)
-                    startActivity(intent)
-                    activityToClose.finish()
+                }else{
                     Toast.makeText(
                         this@MinistryActivity,
-                        "Ellenőrizd az internetkapcsolatot!\n\nRendszerüzenet:\n" + result.exceptionMSG,
+                        "Ellenőrizd az internetkapcsolatot!\n\nLegutóbbi frissítés::\n" + Global.resultDate,
                         Toast.LENGTH_LONG
                     ).show()
+                    if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
+                    else newStartActivity()
+
                 }
             }
         }
     }
-/*
-    @SuppressLint("SimpleDateFormat")
-    private fun viewChange() {
-        var start = 0
-        var end = 0
-        var spCongList = listOf("")
 
-        if (viewCounter == 0) {
-            var dataDate = congList[0]
-            dataDate = dataDate.replace(".", "")
-            val dateFormat = SimpleDateFormat("MMdd")
-            val currentDate = dateFormat.format(Date())
-            viewCounter = if (dataDate < currentDate) 2 else 1
-        }
-
-        when (viewCounter) {
-            1 -> {
-                binding.next.visibility = View.VISIBLE
-                binding.previous.visibility = View.GONE
-                start = 2
-                end = 55
-            }
-            2 -> {
-                binding.previous.visibility = View.VISIBLE
-                binding.previous.visibility = View.VISIBLE
-                start = 56
-                end = 89
-            }
-            3 -> {
-                start = 90
-                end = 140
-            }
-            4 -> {
-                start = 141
-                end = 174
-            }
-            5 -> {
-                start = 175
-                end = 228
-            }
-            6 -> {
-                start = 229
-                end = 262
-            }
-            7 -> {
-                binding.next.visibility = View.VISIBLE
-                start = 263
-                end = 315
-            }
-            8 -> {
-                binding.next.visibility = View.GONE
-                binding.previous.visibility = View.VISIBLE
-                start = 316
-                end = congList.lastIndex
-            }
-        }
-        for (i in start..end) spCongList = spCongList + listOf(congList[i])
-
-        congAdapter = CongregationAdapter(this, spCongList)
-        binding.congregationRecyclerview.adapter = congAdapter
-
+    private fun newStartActivity() {
+        val activityToClose = this@MinistryActivity
+        val intent = Intent(this@MinistryActivity, StartActivity::class.java)
+        startActivity(intent)
+        activityToClose.finishAffinity()
     }
-*/
+
+    private fun dataHandler(values: List<List<String>>) {
+        var k = 0
+        val columnSize = (values.size).minus(1)
+        for (i in 0..columnSize) {
+            val rowSize = (values[i].size).minus(1)
+            for (j in 0..rowSize) {
+                ministryList[k] += arrayOf(values[i][j])
+                if (values[i][j] == "/n") k++
+            }
+        }
+        var spMinistryList = listOf<MinistryData>()
+
+        for (i in 1..ministryList[1].lastIndex step 5) {
+            spMinistryList = spMinistryList + listOf(
+                MinistryData(
+                    null,
+                    ministryList[1][i],
+                    ministryList[1][i + 1],
+                    ministryList[1][i + 3],
+                    ministryList[1][i + 2],
+                    ministryList[1][i + 4]
+                )
+            )
+        }
+
+        binding.pbMinistry.visibility = View.GONE
+        binding.rvMinistry.visibility = View.VISIBLE
+
+        ministryAdapter = MinistryAdapter(this, spMinistryList)
+        binding.rvMinistry.adapter = ministryAdapter
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        newStartActivity()
+    }
 }
