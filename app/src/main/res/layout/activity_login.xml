@@ -25,7 +25,7 @@
             android:id="@+id/etLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Hardcode"
+            android:hint="Code: 25"
             android:textSize="24sp"
             android:inputType="textWebPassword"
             />
