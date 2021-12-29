@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
                 congRoomAll =
                 AppDatabase.getInstance(this@LoginActivity).congDao().getAllInfo().last()
             }catch(e: Exception){
-                congRoomAll= CongregationDataRoom(null,"",0,"3197",Global.resultDate,Global.resultValues)
+                congRoomAll= CongregationDataRoom(null,"",0,"55555",Global.resultDate,Global.resultValues)
                 AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoomAll)
             }
 
@@ -48,14 +48,14 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginTextView.text="HARDD_CODE = 3197"
+        binding.loginTextView.text="Add meg a kódot"
 
         binding.btnLogin.setOnClickListener {
             when {
 
                 Global.HARDD_CODE == binding.etLogin.text.toString() -> {
                     thread{
-                        val congRoom = CongregationDataRoom(null,"",1,"3197",Global.resultDate,Global.resultValues)
+                        val congRoom = CongregationDataRoom(null,"",1,"55555",Global.resultDate,Global.resultValues)
                         AppDatabase.getInstance(this@LoginActivity).congDao().deleteAll()
                         AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoom)
                     }
