@@ -34,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
             Global.resultDate = congRoomAll.updateDate
             Global.resultValues=congRoomAll.resultValues
 
-
             runOnUiThread {
                 if(Global.firstStartCounter==1) {
                     nextActivity(Intent(this@LoginActivity,StartActivity::class.java))
@@ -52,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             when {
-
                 Global.HARDD_CODE == binding.etLogin.text.toString() -> {
                     thread{
                         val congRoom = CongregationDataRoom(null,"",1,"55555",Global.resultDate,Global.resultValues)
@@ -62,14 +60,12 @@ class LoginActivity : AppCompatActivity() {
                     Global.firstStartCounter = 1
                     nextActivity(Intent(this@LoginActivity,NameActivity::class.java))
                 }
-
                 Global.firstStartCounter > 10 -> {
                     binding.loginTextView.text="Túl sokszor adtál meg helytelen kódot. "
                     binding.btnLogin.visibility = View.GONE
                     binding.textInputLayout.visibility = View.GONE
                     binding.loginTextView.visibility = View.VISIBLE
                 }
-
                 else -> {
                     Global.firstStartCounter++
                     Toast.makeText(this, "Nem megfelelő kód!\n ",Toast.LENGTH_LONG).show()
@@ -80,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun nextActivity(intent: Intent) {
         val activityToClose = this@LoginActivity
-        //val intent = Intent(this@LoginActivity,StartActivity::class.java )
         startActivity(intent)
         activityToClose.finish()
     }

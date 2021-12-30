@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.databinding.CongregationRowBinding
 
-
 class CongregationAdapter(var context: Context, resultItems: List<String>) : RecyclerView.Adapter<CongregationAdapter.ViewHolder>() {
-
 
     private var congItems = mutableListOf<String>()
 

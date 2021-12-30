@@ -25,7 +25,7 @@ class CongregationActivity : AppCompatActivity() {
 
 
     private var congList: Array<Array<String>> = arrayOf(
-    arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
+    arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
 
     private var viewCounter=0
 
@@ -53,7 +53,7 @@ class CongregationActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
     private fun render(result: CongregationViewState){
         when(result){
             is InProgress ->{

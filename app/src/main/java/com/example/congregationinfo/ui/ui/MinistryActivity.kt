@@ -20,7 +20,7 @@ class MinistryActivity : AppCompatActivity() {
     private lateinit var ministryAdapter: MinistryAdapter
 
     private var ministryList: Array<Array<String>> = arrayOf(
-        arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
+        arrayOf(""),arrayOf(""))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
