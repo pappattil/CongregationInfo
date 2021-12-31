@@ -53,7 +53,7 @@ class StartActivity : AppCompatActivity() {
                     startDate = startCongList[i+1]
                 }
                 if (startCongList[i] == Global.name) {
-                    spStartCongList = spStartCongList+listOf(StartData(null,startDate,startCongList[i-1]))
+                    spStartCongList = spStartCongList+listOf(StartData(null,startDate,startCongList[i-1].dropLast(1)))
                 }
             }
             for (i in 0..startMinistryList.lastIndex-1 ) {
