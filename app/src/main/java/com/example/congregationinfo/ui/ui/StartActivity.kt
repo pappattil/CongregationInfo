@@ -35,7 +35,7 @@ class StartActivity : AppCompatActivity() {
 */
         //var startList : List<String>
         if (Global.resultDate != "") {
-            binding.tvDataStatus.text = "Adatbázis frissítve: " + Global.resultDate
+            binding.tvDataStatus.text = "Adatok frissítve: " + Global.resultDate
             var k = 0
             val columnSize = (Global.resultValues.size).minus(1)
             for (i in 0..columnSize) {
