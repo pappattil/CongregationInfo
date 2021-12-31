@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.congregationinfo.R
 import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.data.StartData
 import com.example.congregationinfo.databinding.ActivityStartBinding
@@ -25,14 +26,8 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        /*        setSupportActionBar(findViewById(R.id.toolbar))
-        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        setSupportActionBar(findViewById(R.id.toolbar))
 
-*/
         //var startList : List<String>
         if (Global.resultDate != "") {
             binding.tvDataStatus.text = "Adatok frissítve: " + Global.resultDate
@@ -50,12 +45,12 @@ class StartActivity : AppCompatActivity() {
                 if (startCongList[i] == ";") {
                     startDate = startCongList[i+1]
                 }
-                if (startCongList[i] == Global.name) {
+                if (startCongList[i].lowercase() == Global.name.lowercase()) {
                     spStartCongList = spStartCongList+listOf(StartData(null,startDate,startCongList[i-1].dropLast(1)))
                 }
             }
             for (i in 0..startMinistryList.lastIndex-1 ) {
-                if (startMinistryList[i] == Global.name) {
+                if (startMinistryList[i].lowercase() == Global.name.lowercase()) {
                     startDate = startMinistryList[i-4]
                     spStartCongList = spStartCongList+ listOf(StartData(null,startDate.drop(5).dropLast(1),startMinistryList[i-3]+", Szántóföldi összejövetel"))
                 }

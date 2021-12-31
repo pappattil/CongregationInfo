@@ -46,6 +46,10 @@ class  MinistryAdapter(var context: Context, resultItems: List<MinistryData>) : 
 
             if (Global.name != "" && holder.tvConductor.text.toString().lowercase() == Global.name.lowercase()) {
                 holder.tvConductor.setTextColor(Color.RED)
+                holder.tvDate.setTextColor(Color.WHITE)
+                holder.tvGroup.setTextColor(Color.WHITE)
+                holder.tvHour.setTextColor(Color.WHITE)
+                holder.tvPlace.setTextColor(Color.WHITE)
             }
             else {
                 holder.tvConductor.setTextColor(Color.WHITE)
