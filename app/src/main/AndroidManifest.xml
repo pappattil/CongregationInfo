@@ -14,7 +14,8 @@
         android:theme="@style/Theme.CongregationInfo">
         <activity
             android:name=".ui.ui.MinistryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Szántóföldi összejövetel beosztás"/>
         <activity
             android:name=".ui.ui.LoginActivity"
             android:exported="true">
@@ -27,11 +28,11 @@
         <activity
             android:name=".ui.ui.StartActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="Ráckeve gyülekezet"
             android:theme="@style/Theme.CongregationInfo.NoActionBar" />
         <activity
             android:name=".ui.ui.CongregationActivity"
-            android:label="Beosztás"
+            android:label="Gyülekezeti összejövetel beosztás"
             android:theme="@style/Theme.CongregationInfo" />
         <activity
             android:name=".ui.ui.NameActivity"
