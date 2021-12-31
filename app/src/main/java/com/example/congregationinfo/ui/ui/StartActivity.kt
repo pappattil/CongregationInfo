@@ -18,7 +18,6 @@ class StartActivity : AppCompatActivity() {
     //@SuppressLint("SetTextI18n")
     var startCongList = listOf("")
     var startMinistryList = listOf("")
-
     var startDate = " "
     var spStartCongList : List<StartData> = emptyList()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +32,8 @@ class StartActivity : AppCompatActivity() {
         }
 
 */
-        //var startList : List<String>
+
+        binding.textView2.text = Global.name + " Feladatai"
         if (Global.resultDate != "") {
             binding.tvDataStatus.text = "Adatok frissítve: " + Global.resultDate
             var k = 0
@@ -47,28 +47,40 @@ class StartActivity : AppCompatActivity() {
 
                 }
             }
+            var separator=0
             for (i in 0..(startCongList.size).minus(2)) {
 
                 if (startCongList[i] == ";") {
                     startDate = startCongList[i+1]
                 }
+
                 if (startCongList[i] == Global.name) {
+                    if (separator==0){
+                        spStartCongList = spStartCongList+ listOf(StartData(null,"","Gyülekezeti Feladatok"))
+                        separator++
+                    }
                     spStartCongList = spStartCongList+listOf(StartData(null,startDate,startCongList[i-1].dropLast(1)))
                 }
             }
+           separator=0
             for (i in 0..startMinistryList.lastIndex-1 ) {
+
                 if (startMinistryList[i] == Global.name) {
+                    if (separator==0){
+                        spStartCongList = spStartCongList+ listOf(StartData(null,"","Szántóföldi feladatok"))
+                        separator++
+                    }
                     startDate = startMinistryList[i-4]
                     spStartCongList = spStartCongList+ listOf(StartData(null,startDate,startMinistryList[i-3]+", Szántóföldi összejövetel"))
                 }
             }
-
-            startAdapter = StartAdapter(this, spStartCongList)
-            binding.rvStart.adapter = startAdapter
-
-            binding.rvStart.visibility = View.VISIBLE
-            binding.textView.visibility = View.VISIBLE
-            binding.textView2.visibility = View.VISIBLE
+            if(spStartCongList.size>0){
+                startAdapter = StartAdapter(this, spStartCongList)
+                binding.rvStart.adapter = startAdapter
+                binding.rvStart.visibility = View.VISIBLE
+                binding.textView.visibility = View.VISIBLE
+                binding.textView2.visibility = View.VISIBLE
+            }
 
         }
         binding.btnCongregation.setOnClickListener {
