@@ -25,7 +25,7 @@ class CongregationActivity : AppCompatActivity() {
 
 
     private var congList: Array<Array<String>> = arrayOf(
-    arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
+    arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
 
     private var viewCounter=0
 
@@ -53,7 +53,7 @@ class CongregationActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
     private fun render(result: CongregationViewState){
         when(result){
             is InProgress ->{
@@ -61,8 +61,9 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is CongregationResponseSuccess -> {
-                Global.resultDate = Date().toString()
-               Global.resultValues = result.data.values!!
+                val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+                Global.resultDate = date
+                Global.resultValues = result.data.values!!
                 thread{
                     val congRoom = CongregationDataRoom(null,
                         Global.name,

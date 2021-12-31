@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
                 congRoomAll =
                 AppDatabase.getInstance(this@LoginActivity).congDao().getAllInfo().last()
             }catch(e: Exception){
-                congRoomAll= CongregationDataRoom(null,"",0,"3197",Global.resultDate,Global.resultValues)
+                congRoomAll= CongregationDataRoom(null,"",0,"55555",Global.resultDate,Global.resultValues)
                 AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoomAll)
             }
 
@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
             Global.HARDD_CODE = congRoomAll.hardCode
             Global.resultDate = congRoomAll.updateDate
             Global.resultValues=congRoomAll.resultValues
-
 
             runOnUiThread {
                 if(Global.firstStartCounter==1) {
@@ -48,28 +47,25 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginTextView.text="HARDD_CODE = 3197"
+        binding.loginTextView.text="Add meg a kódot"
 
         binding.btnLogin.setOnClickListener {
             when {
-
                 Global.HARDD_CODE == binding.etLogin.text.toString() -> {
                     thread{
-                        val congRoom = CongregationDataRoom(null,"",1,"3197",Global.resultDate,Global.resultValues)
+                        val congRoom = CongregationDataRoom(null,"",1,"55555",Global.resultDate,Global.resultValues)
                         AppDatabase.getInstance(this@LoginActivity).congDao().deleteAll()
                         AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoom)
                     }
                     Global.firstStartCounter = 1
                     nextActivity(Intent(this@LoginActivity,NameActivity::class.java))
                 }
-
                 Global.firstStartCounter > 10 -> {
                     binding.loginTextView.text="Túl sokszor adtál meg helytelen kódot. "
                     binding.btnLogin.visibility = View.GONE
                     binding.textInputLayout.visibility = View.GONE
                     binding.loginTextView.visibility = View.VISIBLE
                 }
-
                 else -> {
                     Global.firstStartCounter++
                     Toast.makeText(this, "Nem megfelelő kód!\n ",Toast.LENGTH_LONG).show()
@@ -80,7 +76,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun nextActivity(intent: Intent) {
         val activityToClose = this@LoginActivity
-        //val intent = Intent(this@LoginActivity,StartActivity::class.java )
         startActivity(intent)
         activityToClose.finish()
     }

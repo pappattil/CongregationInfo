@@ -21,17 +21,19 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-/*        setSupportActionBar(findViewById(R.id.toolbar))
+        /*        setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
-       findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
 */
         //var startList : List<String>
         if (Global.resultDate != "") {
             binding.tvDataStatus.text = "Adatbázis frissítve:\n" + Global.resultDate
 
+          
             var k = 0
             val columnSize = (Global.resultValues.size).minus(1)
             for (i in 0..columnSize) {
@@ -75,22 +77,4 @@ class StartActivity : AppCompatActivity() {
             }
         }
     }
-/*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_scrolling, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-*/
 }
