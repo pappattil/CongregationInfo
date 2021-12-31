@@ -43,12 +43,10 @@ class StartActivity : AppCompatActivity() {
                 for (j in 0..rowSize) {
                     if (Global.resultValues[i][j] == "/n") k++
                     if (k < 1) startCongList =startCongList+ listOf(Global.resultValues[i][j])
-                    else startMinistryList =startMinistryList + listOf(Global.resultValues[i][j])
-
+                    else startMinistryList = startMinistryList + listOf(Global.resultValues[i][j])
                 }
             }
             for (i in 0..(startCongList.size).minus(2)) {
-
                 if (startCongList[i] == ";") {
                     startDate = startCongList[i+1]
                 }
@@ -59,7 +57,7 @@ class StartActivity : AppCompatActivity() {
             for (i in 0..startMinistryList.lastIndex-1 ) {
                 if (startMinistryList[i] == Global.name) {
                     startDate = startMinistryList[i-4]
-                    spStartCongList = spStartCongList+ listOf(StartData(null,startDate,startMinistryList[i-3]+", Szántóföldi összejövetel"))
+                    spStartCongList = spStartCongList+ listOf(StartData(null,startDate.drop(5).dropLast(1),startMinistryList[i-3]+", Szántóföldi összejövetel"))
                 }
             }
 
