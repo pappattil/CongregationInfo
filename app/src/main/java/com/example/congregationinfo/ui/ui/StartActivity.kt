@@ -71,7 +71,7 @@ class StartActivity : AppCompatActivity() {
                         separator++
                     }
                     startDate = startMinistryList[i-4]
-                    spStartCongList = spStartCongList+ listOf(StartData(null,startDate,startMinistryList[i-3]+", Szántóföldi összejövetel"))
+                    spStartCongList = spStartCongList+ listOf(StartData(null,startDate.drop(5).dropLast(1),startMinistryList[i-3]+", Szántóföldi összejövetel"))
                 }
             }
             if(spStartCongList.size>0){
