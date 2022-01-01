@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.congregationinfo.R
 import com.example.congregationinfo.data.Global
 import com.example.congregationinfo.data.StartData
 import com.example.congregationinfo.databinding.ActivityStartBinding
@@ -25,7 +26,8 @@ class StartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        /*        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
+        /*
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -34,7 +36,7 @@ class StartActivity : AppCompatActivity() {
 
 */
 
-        binding.textView2.text = Global.name + " Feladatai"
+        binding.textView2.text = Global.name + " feladatai"
         if (Global.resultDate != "") {
             binding.tvDataStatus.text = "Adatok frissítve: " + Global.resultDate
             var k = 0
