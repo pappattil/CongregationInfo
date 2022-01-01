@@ -60,7 +60,7 @@ class StartActivity : AppCompatActivity() {
                         spStartCongList = spStartCongList+ listOf(StartData(null,"Dátum","Gyülekezeti Feladatok"))
                         separator++
                     }
-                    startCongList[i-1].replace(":","&",)
+
                     spStartCongList = spStartCongList+listOf(
                         StartData(null,
                             startDate,
