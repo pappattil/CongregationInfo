@@ -67,16 +67,16 @@ class MinistryActivity : AppCompatActivity() {
                 binding.btnBack.visibility = View.GONE
 
                 binding.pbMinistry.visibility = View.GONE
+                newStartActivity()
+                /*
                 if (result.exceptionMSG == "timeout") {
-                    val activityToClose = this@MinistryActivity
-                    val intent = Intent(this@MinistryActivity, MinistryActivity::class.java)
-                    startActivity(intent)
-                    activityToClose.finish()
+                    //newMinistryActivity()
                     Toast.makeText(
                         this@MinistryActivity,
                         "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
                         Toast.LENGTH_LONG
                     ).show()
+                    newStartActivity()
                 }else{
                     Toast.makeText(
                         this@MinistryActivity,
@@ -87,8 +87,16 @@ class MinistryActivity : AppCompatActivity() {
                     else newStartActivity()
 
                 }
+                */
             }
         }
+    }
+
+    private fun newMinistryActivity() {
+        val activityToClose = this@MinistryActivity
+        val intent = Intent(this@MinistryActivity, MinistryActivity::class.java)
+        startActivity(intent)
+        activityToClose.finish()
     }
 
     private fun newStartActivity() {

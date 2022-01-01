@@ -83,11 +83,12 @@ class CongregationActivity : AppCompatActivity() {
                 binding.next.visibility= View.GONE
 
                 binding.progressBar.visibility = View.GONE
-                if(result.exceptionMSG=="timeout"){
-                    val activityToClose =  this@CongregationActivity
-                    val intent = Intent(this@CongregationActivity, CongregationActivity::class.java)
-                    startActivity(intent)
-                    activityToClose.finish()
+                newStartActivity()
+                /*if(result.exceptionMSG=="timeout"){
+                    //val activityToClose =  this@CongregationActivity
+                   // val intent = Intent(this@CongregationActivity, CongregationActivity::class.java)
+                   // startActivity(intent)
+                  //  activityToClose.finish()
                     //Toast.makeText(this@CongregationActivity,"Rendszerüzenet:\ntimeout"+result.exceptionMSG+"\n", Toast.LENGTH_LONG).show()
                 }else {
                     Toast.makeText(
@@ -98,6 +99,8 @@ class CongregationActivity : AppCompatActivity() {
                     if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
                     else newStartActivity()
                 }
+
+                 */
             }
         }
     }
