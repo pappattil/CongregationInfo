@@ -2,6 +2,7 @@ package com.example.congregationinfo.ui.ui
 
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,7 +16,7 @@ import com.example.congregationinfo.ui.adapter.StartAdapter
 class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
     private lateinit var startAdapter: StartAdapter
-    //@SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n")
     var startCongList = listOf("")
     var startMinistryList = listOf("")
     var startDate = " "
@@ -56,10 +57,16 @@ class StartActivity : AppCompatActivity() {
 
                 if (startCongList[i] == Global.name) {
                     if (separator==0){
-                        spStartCongList = spStartCongList+ listOf(StartData(null,"","Gyülekezeti Feladatok"))
+                        spStartCongList = spStartCongList+ listOf(StartData(null,"Dátum","Gyülekezeti Feladatok"))
                         separator++
                     }
-                    spStartCongList = spStartCongList+listOf(StartData(null,startDate,startCongList[i-1].dropLast(1)))
+                    startCongList[i-1].replace(":","&",)
+                    spStartCongList = spStartCongList+listOf(
+                        StartData(null,
+                            startDate,
+                            if (startCongList[i-1].last() == ':')startCongList[i-1].dropLast(1)
+                            else startCongList[i-1] )
+                    )
                 }
             }
            separator=0
@@ -67,18 +74,17 @@ class StartActivity : AppCompatActivity() {
 
                 if (startMinistryList[i] == Global.name) {
                     if (separator==0){
-                        spStartCongList = spStartCongList+ listOf(StartData(null,"","Szántóföldi feladatok"))
+                        spStartCongList = spStartCongList+ listOf(StartData(null,"Dátum","Szántóföldi feladatok"))
                         separator++
                     }
                     startDate = startMinistryList[i-4]
-                    spStartCongList = spStartCongList+ listOf(StartData(null,startDate.drop(5).dropLast(1),startMinistryList[i-3]+", Szántóföldi összejövetel"))
+                    spStartCongList = spStartCongList+ listOf(StartData(null,startDate,startMinistryList[i-3]+", Szántóföldi összejövetel"))
                 }
             }
             if(spStartCongList.size>0){
                 startAdapter = StartAdapter(this, spStartCongList)
                 binding.rvStart.adapter = startAdapter
                 binding.rvStart.visibility = View.VISIBLE
-                binding.textView.visibility = View.VISIBLE
                 binding.textView2.visibility = View.VISIBLE
             }
 
