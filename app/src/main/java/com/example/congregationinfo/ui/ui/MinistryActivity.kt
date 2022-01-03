@@ -58,7 +58,7 @@ class MinistryActivity : AppCompatActivity() {
                     AppDatabase.getInstance(this@MinistryActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@MinistryActivity).congDao().insertInfo(congRoom)
                 }
-                dataHandler(result.data.values)
+                dataHandler(Global.resultValues)
             }
 
             is CongregationResponseError -> {
