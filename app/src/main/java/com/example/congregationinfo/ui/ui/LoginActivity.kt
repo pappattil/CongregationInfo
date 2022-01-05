@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.textInputLayout.visibility = View.VISIBLE
                     binding.loginTextView.visibility = View.VISIBLE
                     binding.textInputLayout2.visibility = View.VISIBLE
+                    binding.btnRegistration.visibility = View.VISIBLE
                 }
             }
         }
@@ -88,9 +89,14 @@ class LoginActivity : AppCompatActivity() {
             if (Global.firstStartCounter == 10){
                 binding.textInputLayout.visibility=View.GONE
                 binding.textInputLayout2.visibility=View.GONE
+                binding.btnRegistration.visibility=View.GONE
                 binding.btnLogin.visibility=View.GONE
                 binding.loginTextView.text = "Túl sokszor adtál meg halytelen kódot!"
             }
         }
+    }
+
+    fun registrationClick(view: android.view.View) {
+        nextActivity(Intent(this@LoginActivity,RegistrationActivity::class.java))
     }
 }
