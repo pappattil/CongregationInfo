@@ -13,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CongregationInfo">
         <activity
+            android:name=".ui.ui.RegistrationActivity"
+            android:exported="false"
+            android:label="Regisztráció" />
+        <activity
             android:name=".ui.ui.MinistryActivity"
             android:exported="false"
-            android:label="Szántóföldi összejövetel beosztás"/>
+            android:label="Szántóföldi összejövetel beosztás" />
         <activity
             android:name=".ui.ui.LoginActivity"
             android:exported="true">

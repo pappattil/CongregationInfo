@@ -24,7 +24,7 @@ class NameActivity : AppCompatActivity() {
             if(binding.textviewName.text.isNotEmpty()){
                 Global.name = binding.textviewName.text.toString()
                 thread{
-                    val congRoom = CongregationDataRoom(null,Global.name,Global.firstStartCounter,Global.HARDD_CODE,Global.resultDate,Global.resultValues)
+                    val congRoom = CongregationDataRoom(null,Global.name,Global.firstStartCounter,Global.counter,Global.resultDate,Global.resultValues)
                     AppDatabase.getInstance(this@NameActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@NameActivity).congDao().insertInfo(congRoom)
                 }

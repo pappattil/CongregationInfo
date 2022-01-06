@@ -51,14 +51,14 @@ class MinistryActivity : AppCompatActivity() {
                         null,
                         Global.name,
                         Global.firstStartCounter,
-                        Global.HARDD_CODE,
+                        Global.counter,
                         Global.resultDate,
                         Global.resultValues
                     )
                     AppDatabase.getInstance(this@MinistryActivity).congDao().deleteAll()
                     AppDatabase.getInstance(this@MinistryActivity).congDao().insertInfo(congRoom)
                 }
-                dataHandler(result.data.values)
+                dataHandler(Global.resultValues)
             }
 
             is CongregationResponseError -> {
@@ -67,16 +67,18 @@ class MinistryActivity : AppCompatActivity() {
                 binding.btnBack.visibility = View.GONE
 
                 binding.pbMinistry.visibility = View.GONE
+
                 if (result.exceptionMSG == "timeout") {
-                    val activityToClose = this@MinistryActivity
-                    val intent = Intent(this@MinistryActivity, MinistryActivity::class.java)
-                    startActivity(intent)
-                    activityToClose.finish()
+                    if(Global.counter < 2){
+                        Global.counter++
+                        newMinistryActivity()
+                    }
                     Toast.makeText(
                         this@MinistryActivity,
                         "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
                         Toast.LENGTH_LONG
                     ).show()
+                    newStartActivity()
                 }else{
                     Toast.makeText(
                         this@MinistryActivity,
@@ -87,8 +89,16 @@ class MinistryActivity : AppCompatActivity() {
                     else newStartActivity()
 
                 }
+
             }
         }
+    }
+
+    private fun newMinistryActivity() {
+        val activityToClose = this@MinistryActivity
+        val intent = Intent(this@MinistryActivity, MinistryActivity::class.java)
+        startActivity(intent)
+        activityToClose.finish()
     }
 
     private fun newStartActivity() {
