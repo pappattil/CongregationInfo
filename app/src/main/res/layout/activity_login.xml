@@ -19,10 +19,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLoginName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="Email"
             android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -39,15 +40,13 @@
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
 
-    <!--android:visibility="gone"-->
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:onClick="loginClick"
-        android:text="Mentés"
+        android:text="Belépés"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintHorizontal_bias="0.496"
@@ -76,10 +75,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         app:passwordToggleEnabled="true">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textWebPassword"
             android:hint="password"
             android:textSize="24sp"
             android:autofillHints="" />

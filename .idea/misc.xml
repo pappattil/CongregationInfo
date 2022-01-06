@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.25" />
         <entry key="app/src/main/res/layout-land/activity_start.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_congregation.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.13092105263157894" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_ministry.xml" value="0.13092105263157894" />
         <entry key="app/src/main/res/layout/activity_name.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.12763157894736843" />

@@ -1,6 +1,5 @@
 package com.example.congregationinfo.ui.ui
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -42,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.progressBarLogin.visibility=View.GONE
                     binding.btnLogin.visibility = View.VISIBLE
                     binding.textInputLayout.visibility = View.VISIBLE
-                    binding.loginTextView.visibility = View.VISIBLE
+                    //binding.loginTextView.visibility = View.VISIBLE
                     binding.textInputLayout2.visibility = View.VISIBLE
                     binding.btnRegistration.visibility = View.VISIBLE
                 }
@@ -57,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isFormValid(): Boolean{
-      if(binding.etLoginName.text.isEmpty()){
+      if(binding.etLoginName.text!!.isEmpty()){
             binding.etLoginName.error = "Ez a mező nem maradhat üres!"
             return false
         } else return true
@@ -70,6 +69,11 @@ class LoginActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(
             binding.etLoginName.text.toString(), binding.etpassword.text.toString()
         ).addOnSuccessListener {
+            if(it.user?.isEmailVerified!! == false) {
+                binding.loginTextView.text= "Megerősítő linket küldtünk az email címedre.\n Kérjük erősítsd meg az email címedet, és utána próbáld újra a belépést!"
+                binding.loginTextView.visibility= View.VISIBLE
+                return@addOnSuccessListener
+            }
             thread {
                    val congRoom = CongregationDataRoom(
                        null,
@@ -91,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.textInputLayout2.visibility=View.GONE
                 binding.btnRegistration.visibility=View.GONE
                 binding.btnLogin.visibility=View.GONE
+                binding.loginTextView.visibility=View.VISIBLE
                 binding.loginTextView.text = "Túl sokszor adtál meg halytelen kódot!"
             }
         }

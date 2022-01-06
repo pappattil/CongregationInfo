@@ -14,7 +14,8 @@
         android:theme="@style/Theme.CongregationInfo">
         <activity
             android:name=".ui.ui.RegistrationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Regisztráció" />
         <activity
             android:name=".ui.ui.MinistryActivity"
             android:exported="false"

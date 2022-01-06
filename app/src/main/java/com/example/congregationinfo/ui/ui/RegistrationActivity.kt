@@ -14,29 +14,36 @@ class RegistrationActivity : AppCompatActivity() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnReg.setOnClickListener {
-
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                binding.etRegEmail.toString(),binding.etRegPassword.toString()
-            ).addOnSuccessListener {
-                it.user?.sendEmailVerification()
-                Toast.makeText(this,
-                    "Sikeres Regisztráció!",
-                    Toast.LENGTH_LONG).show()
-            }.addOnFailureListener {
-                Toast.makeText(this,
-                    "A regisztráció nem sikerült!",
-                    Toast.LENGTH_LONG).show()
-            }
-
-            nextActivity(Intent(this@RegistrationActivity,LoginActivity::class.java))
-        }
-
     }
+
     private fun nextActivity(intent: Intent) {
         val activityToClose = this@RegistrationActivity
         startActivity(intent)
         activityToClose.finish()
     }
 
+    private fun isFormValid(): Boolean{
+        if(binding.etRegEmail.text!!.isEmpty()){
+            binding.etRegEmail.error = "Ez a mező nem maradhat üres!"
+            return false
+        } else return true
+    }
+
+    fun regClick(view: android.view.View) {
+        if(!isFormValid()){
+            return
+        }
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+            binding.etRegEmail.editableText.toString(),binding.etRegPassword.editableText.toString()
+        ).addOnSuccessListener {
+            it.user?.sendEmailVerification()
+            Toast.makeText(this@RegistrationActivity,"Sikeres Regisztráció!",Toast.LENGTH_LONG).show()
+        }.addOnFailureListener {
+            Toast.makeText(this@RegistrationActivity,"A regisztráció nem sikerült!\n"+it.message,Toast.LENGTH_LONG).show()
+        }
+
+        nextActivity(Intent(this@RegistrationActivity,LoginActivity::class.java))
+    }
+
 }
+
