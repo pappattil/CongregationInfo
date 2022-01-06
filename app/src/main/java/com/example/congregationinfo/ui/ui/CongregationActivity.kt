@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.data.AppDatabase
@@ -67,7 +68,7 @@ class CongregationActivity : AppCompatActivity() {
                         val congRoom = CongregationDataRoom(null,
                             Global.name,
                             Global.firstStartCounter,
-                            Global.HARDD_CODE,
+                            Global.counter,
                             Global.resultDate,
                             Global.resultValues
                         )
@@ -84,6 +85,27 @@ class CongregationActivity : AppCompatActivity() {
                 //binding.next.visibility= View.GONE
                 binding.progressBar.visibility = View.GONE
                 //newStartActivity()
+                if (result.exceptionMSG == "timeout") {
+                    if(Global.counter < 2){
+                        Global.counter++
+                        newCongregationActivity()
+                    }
+                    Toast.makeText(
+                        this@CongregationActivity,
+                        "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    newStartActivity()
+                }else{
+                    Toast.makeText(
+                        this@CongregationActivity,
+                        "Ellenőrizd az internetkapcsolatot!\n\nLegutóbbi frissítés::\n" + Global.resultDate,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
+                    else newStartActivity()
+
+                }
                 dataHandler(Global.resultValues)
             }
         }
@@ -142,6 +164,12 @@ class CongregationActivity : AppCompatActivity() {
         val intent = Intent(this@CongregationActivity, StartActivity::class.java)
         startActivity(intent)
         activityToClose.finishAffinity()
+    }
+    private fun newCongregationActivity() {
+        val activityToClose = this@CongregationActivity
+        val intent = Intent(this@CongregationActivity, CongregationActivity::class.java)
+        startActivity(intent)
+        activityToClose.finish()
     }
     override fun onBackPressed() {
         super.onBackPressed()

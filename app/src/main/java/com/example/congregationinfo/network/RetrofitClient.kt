@@ -19,7 +19,7 @@ object RetrofitClient {
 
           Retrofit.Builder()
               .baseUrl(MainServer)
-              .client(client)
+              //.client(client)
               .addConverterFactory(MoshiConverterFactory.create())
         }
 

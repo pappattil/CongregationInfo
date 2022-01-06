@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.congregationinfo.data.*
@@ -50,7 +51,7 @@ class MinistryActivity : AppCompatActivity() {
                         null,
                         Global.name,
                         Global.firstStartCounter,
-                        Global.HARDD_CODE,
+                        Global.counter,
                         Global.resultDate,
                         Global.resultValues
                     )
@@ -66,10 +67,12 @@ class MinistryActivity : AppCompatActivity() {
                 binding.btnBack.visibility = View.GONE
 
                 binding.pbMinistry.visibility = View.GONE
-                newStartActivity()
-                /*
+
                 if (result.exceptionMSG == "timeout") {
-                    //newMinistryActivity()
+                    if(Global.counter < 2){
+                        Global.counter++
+                        newMinistryActivity()
+                    }
                     Toast.makeText(
                         this@MinistryActivity,
                         "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
@@ -86,7 +89,7 @@ class MinistryActivity : AppCompatActivity() {
                     else newStartActivity()
 
                 }
-                */
+
             }
         }
     }

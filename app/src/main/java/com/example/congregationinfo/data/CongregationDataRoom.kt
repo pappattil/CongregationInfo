@@ -14,7 +14,7 @@ data class CongregationDataRoom(
         @PrimaryKey(autoGenerate = true) var CongInfoId : Long?,
         @ColumnInfo(name = "name") var name: String,
         @ColumnInfo(name = "firstStartCounter") var firstStartCounter: Int,
-        @ColumnInfo(name = "hardCode") var hardCode: String,
+        @ColumnInfo(name = "hardCode") var counter: Int,
         @ColumnInfo(name = "updateDate") var updateDate: String,
         @ColumnInfo(name = "resultValues") var resultValues: List<List<String>>
 )

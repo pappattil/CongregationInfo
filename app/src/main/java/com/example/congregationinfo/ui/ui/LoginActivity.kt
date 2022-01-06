@@ -24,12 +24,12 @@ class LoginActivity : AppCompatActivity() {
                 congRoomAll =
                 AppDatabase.getInstance(this@LoginActivity).congDao().getAllInfo().last()
             }catch(e: Exception){
-                congRoomAll= CongregationDataRoom(null,"",1,"",Global.resultDate,Global.resultValues)
+                congRoomAll= CongregationDataRoom(null,"",1,0,Global.resultDate,Global.resultValues)
                 AppDatabase.getInstance(this@LoginActivity).congDao().insertInfo(congRoomAll)
             }
             Global.name = congRoomAll.name
             Global.firstStartCounter = congRoomAll.firstStartCounter
-            Global.HARDD_CODE = congRoomAll.hardCode
+            Global.counter = congRoomAll.counter
             Global.resultDate = congRoomAll.updateDate
             Global.resultValues=congRoomAll.resultValues
 
@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
                        null,
                        Global.name,
                        0,
-                       it.user!!.email.toString(),
+                       0,
                        Global.resultDate,
                        Global.resultValues )
                    AppDatabase.getInstance(this@LoginActivity).congDao().deleteAll()
