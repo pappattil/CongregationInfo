@@ -86,7 +86,7 @@ class CongregationActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 //newStartActivity()
                 if (result.exceptionMSG == "timeout") {
-                    if(Global.counter < 2){
+                    if(Global.counter < 4){
                         Global.counter++
                         newCongregationActivity()
                     }

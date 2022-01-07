@@ -69,7 +69,7 @@ class MinistryActivity : AppCompatActivity() {
                 binding.pbMinistry.visibility = View.GONE
 
                 if (result.exceptionMSG == "timeout") {
-                    if(Global.counter < 2){
+                    if(Global.counter < 4){
                         Global.counter++
                         newMinistryActivity()
                     }
