@@ -115,7 +115,7 @@ class MinistryActivity : AppCompatActivity() {
             }
         }
         var spMinistryList = listOf<MinistryData>()
-        var ministryLast= (ministryList[1].lastIndex/5)*5
+        val ministryLast= ministryList[1].lastIndex/5*5
         for (i in 1..ministryLast step 5) {
             spMinistryList = spMinistryList + listOf(
                 MinistryData(
