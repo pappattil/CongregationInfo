@@ -36,7 +36,7 @@ class StartActivity : AppCompatActivity() {
 
 */
 
-
+        Global.counter=0
         binding.textView2.text = Global.name + " feladatai"
         if (Global.resultDate != "") {
             binding.tvDataStatus.text = "Adatok frissítve: " + Global.resultDate

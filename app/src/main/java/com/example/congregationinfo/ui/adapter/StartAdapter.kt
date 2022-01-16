@@ -4,12 +4,9 @@ import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
-import androidx.core.graphics.toColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.congregationinfo.data.StartData
 import com.example.congregationinfo.databinding.StartRowBinding
-import okhttp3.internal.parseCookie
 
 class StartAdapter(var context: Context,items:List<StartData>) : RecyclerView.Adapter<StartAdapter.ViewHolder>() {
     private var startItems = mutableListOf<StartData>()

@@ -20,7 +20,7 @@ class MinistryActivity : AppCompatActivity() {
     private lateinit var ministryAdapter: MinistryAdapter
 
     private var ministryList: Array<Array<String>> = arrayOf(
-        arrayOf(""),arrayOf(""))
+        arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class MinistryActivity : AppCompatActivity() {
         congregationViewModel.getCongregationData()
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
     private fun render(result: CongregationViewState) {
         when (result) {
             is InProgress -> {
@@ -62,23 +62,19 @@ class MinistryActivity : AppCompatActivity() {
             }
 
             is CongregationResponseError -> {
+                //if(Global.resultDate == "") Global.resultValues = emptyList()
 
                 binding.rvMinistry.visibility = View.GONE
                 binding.btnBack.visibility = View.GONE
-
                 binding.pbMinistry.visibility = View.GONE
 
-                if (result.exceptionMSG == "timeout") {
-                    if(Global.counter < 4){
-                        Global.counter++
-                        newMinistryActivity()
-                    }
-                    Toast.makeText(
-                        this@MinistryActivity,
-                        "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    newStartActivity()
+                if (result.exceptionMSG == "timeout" ) {
+                   Toast.makeText(
+                       this@MinistryActivity,
+                       "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
+                       Toast.LENGTH_LONG
+                   ).show()
+                    newMinistryActivity()
                 }else{
                     Toast.makeText(
                         this@MinistryActivity,
@@ -88,7 +84,7 @@ class MinistryActivity : AppCompatActivity() {
                     if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
                     else newStartActivity()
 
-                }
+               }
 
             }
         }
@@ -119,8 +115,8 @@ class MinistryActivity : AppCompatActivity() {
             }
         }
         var spMinistryList = listOf<MinistryData>()
-
-        for (i in 1..ministryList[1].lastIndex step 5) {
+        var ministryLast= (ministryList[1].lastIndex/5)*5
+        for (i in 1..ministryLast step 5) {
             spMinistryList = spMinistryList + listOf(
                 MinistryData(
                     null,

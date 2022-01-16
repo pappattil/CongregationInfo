@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.squareup.moshi.Json
 
 
 @Entity(tableName = "CongInfotable")
@@ -14,7 +13,7 @@ data class CongregationDataRoom(
         @PrimaryKey(autoGenerate = true) var CongInfoId : Long?,
         @ColumnInfo(name = "name") var name: String,
         @ColumnInfo(name = "firstStartCounter") var firstStartCounter: Int,
-        @ColumnInfo(name = "hardCode") var counter: Int,
+        @ColumnInfo(name = "counter") var counter: Int,
         @ColumnInfo(name = "updateDate") var updateDate: String,
         @ColumnInfo(name = "resultValues") var resultValues: List<List<String>>
 )

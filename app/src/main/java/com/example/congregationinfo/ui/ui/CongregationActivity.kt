@@ -81,21 +81,25 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is CongregationResponseError -> {
+                //if(Global.resultDate == "") Global.resultValues = emptyList()
                 //binding.previous.visibility= View.GONE
                 //binding.next.visibility= View.GONE
                 binding.progressBar.visibility = View.GONE
                 //newStartActivity()
                 if (result.exceptionMSG == "timeout") {
-                    if(Global.counter < 4){
+                  /* if(Global.counter < 4){
                         Global.counter++
-                        newCongregationActivity()
-                    }
-                    Toast.makeText(
-                        this@CongregationActivity,
-                        "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    newStartActivity()
+
+                   }else{*/
+                       Toast.makeText(
+                           this@CongregationActivity,
+                           "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
+                           Toast.LENGTH_LONG
+                       ).show()
+                      // newStartActivity()
+                    newCongregationActivity()
+                    //}
+
                 }else{
                     Toast.makeText(
                         this@CongregationActivity,
