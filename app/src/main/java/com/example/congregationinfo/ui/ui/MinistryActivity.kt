@@ -20,7 +20,8 @@ class MinistryActivity : AppCompatActivity() {
     private lateinit var ministryAdapter: MinistryAdapter
 
     private var ministryList: Array<Array<String>> = arrayOf(
-        arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
+        arrayOf(""), arrayOf(""), arrayOf(""), arrayOf(""), arrayOf("")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,51 +42,63 @@ class MinistryActivity : AppCompatActivity() {
             is InProgress -> {
                 binding.pbMinistry.visibility = View.VISIBLE
             }
-
             is CongregationResponseSuccess -> {
-                val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-                Global.resultDate = date
-                Global.resultValues = result.data.values!!
-                thread {
-                    val congRoom = CongregationDataRoom(
-                        null,
-                        Global.name,
-                        Global.firstStartCounter,
-                        Global.counter,
-                        Global.resultDate,
-                        Global.resultValues
-                    )
-                    AppDatabase.getInstance(this@MinistryActivity).congDao().deleteAll()
-                    AppDatabase.getInstance(this@MinistryActivity).congDao().insertInfo(congRoom)
+                var firstSunday = result.data.values!![0][1]
+                val columnSize = (result.data.values.size).minus(1)
+                var i = 0
+                while (i < columnSize) {
+                    val rowSize = (result.data.values[i].size).minus(1)
+                    for (j in 0..rowSize) {
+                        if (result.data.values[i][j] == ";") {
+                            firstSunday = result.data.values[i][j + 1]
+                            i = columnSize
+                        }
+                    }
+                    i++
                 }
-                dataHandler(Global.resultValues)
+                if (dateExam(firstSunday) > 7) {
+                    newMinistryActivity()
+                } else {
+                    val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+                    Global.resultDate = date
+                    Global.resultValues = result.data.values
+                    thread {
+                        val congRoom = CongregationDataRoom(
+                            null,
+                            Global.name,
+                            Global.firstStartCounter,
+                            Global.counter,
+                            Global.resultDate,
+                            Global.resultValues
+                        )
+                        AppDatabase.getInstance(this@MinistryActivity).congDao().deleteAll()
+                        AppDatabase.getInstance(this@MinistryActivity).congDao()
+                            .insertInfo(congRoom)
+                    }
+                    dataHandler(Global.resultValues)
+                }
             }
-
             is CongregationResponseError -> {
-                //if(Global.resultDate == "") Global.resultValues = emptyList()
-
                 binding.rvMinistry.visibility = View.GONE
                 binding.btnBack.visibility = View.GONE
                 binding.pbMinistry.visibility = View.GONE
 
-                if (result.exceptionMSG == "timeout" ) {
-                   Toast.makeText(
-                       this@MinistryActivity,
-                       "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
-                       Toast.LENGTH_LONG
-                   ).show()
+                if (result.exceptionMSG == "timeout") {
+                    Toast.makeText(
+                        this@MinistryActivity,
+                        "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
+                        Toast.LENGTH_LONG
+                    ).show()
                     newMinistryActivity()
-                }else{
+                } else {
                     Toast.makeText(
                         this@MinistryActivity,
                         "Ellenőrizd az internetkapcsolatot!\n\nLegutóbbi frissítés::\n" + Global.resultDate,
                         Toast.LENGTH_LONG
                     ).show()
-                    if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
+                    if (Global.resultValues.isNotEmpty()) dataHandler(Global.resultValues)
                     else newStartActivity()
-
-               }
-
+                }
             }
         }
     }
@@ -115,7 +128,7 @@ class MinistryActivity : AppCompatActivity() {
             }
         }
         var spMinistryList = listOf<MinistryData>()
-        val ministryLast= ministryList[1].lastIndex/5*5
+        val ministryLast = ministryList[1].lastIndex / 5 * 5
         for (i in 1..ministryLast step 5) {
             spMinistryList = spMinistryList + listOf(
                 MinistryData(
@@ -134,6 +147,14 @@ class MinistryActivity : AppCompatActivity() {
 
         ministryAdapter = MinistryAdapter(this, spMinistryList)
         binding.rvMinistry.adapter = ministryAdapter
+    }
+
+    private fun dateExam(value: String): Int {
+        var dataDate = value
+        dataDate = dataDate.replace(".", "")
+        val dateFormat = SimpleDateFormat("MMdd")
+        val currentDate = dateFormat.format(Date())
+        return (currentDate.toInt() - dataDate.toInt())
     }
 
     override fun onBackPressed() {

@@ -25,9 +25,19 @@ class CongregationActivity : AppCompatActivity() {
 
 
     private var congList: Array<Array<String>> = arrayOf(
-    arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""),arrayOf(""))
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf(""),
+        arrayOf("")
+    )
 
-    private var viewCounter=0
+    private var viewCounter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +48,12 @@ class CongregationActivity : AppCompatActivity() {
         val congregationViewModel: CongregationViewModel by viewModels()
 
         congregationViewModel.getCongregationLiveData().observe(this,
-            {congregationResult -> render(congregationResult)})
+            { congregationResult -> render(congregationResult) })
 
         congregationViewModel.getCongregationData()
 
         binding.next.setOnClickListener {
-            viewCounter ++
+            viewCounter++
             viewChange()
         }
 
@@ -54,18 +64,35 @@ class CongregationActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
-    private fun render(result: CongregationViewState){
-        when(result){
-            is InProgress ->{
+    private fun render(result: CongregationViewState) {
+        when (result) {
+            is InProgress -> {
                 binding.progressBar.visibility = View.VISIBLE
             }
 
             is CongregationResponseSuccess -> {
-                val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-                Global.resultDate = date
-                Global.resultValues = result.data.values!!
-                    thread{
-                        val congRoom = CongregationDataRoom(null,
+                var firstSunday = result.data.values!![0][1]
+                val columnSize = (result.data.values.size).minus(1)
+                var i = 0
+                while (i < columnSize) {
+                    val rowSize = (result.data.values[i].size).minus(1)
+                    for (j in 0..rowSize) {
+                        if (result.data.values[i][j] == ";") {
+                            firstSunday = result.data.values[i][j + 1]
+                            i = columnSize
+                        }
+                    }
+                    i++
+                }
+                if (dateExam(firstSunday) > 7) {
+                    newCongregationActivity()
+                } else {
+                    val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+                    Global.resultDate = date
+                    Global.resultValues = result.data.values
+                    thread {
+                        val congRoom = CongregationDataRoom(
+                            null,
                             Global.name,
                             Global.firstStartCounter,
                             Global.counter,
@@ -73,40 +100,29 @@ class CongregationActivity : AppCompatActivity() {
                             Global.resultValues
                         )
                         AppDatabase.getInstance(this@CongregationActivity).congDao().deleteAll()
-                        AppDatabase.getInstance(this@CongregationActivity).congDao().insertInfo(congRoom)
+                        AppDatabase.getInstance(this@CongregationActivity).congDao()
+                            .insertInfo(congRoom)
                     }
-
-               dataHandler(Global.resultValues)
-
+                    dataHandler(Global.resultValues)
+                }
             }
-
             is CongregationResponseError -> {
-                //if(Global.resultDate == "") Global.resultValues = emptyList()
-                //binding.previous.visibility= View.GONE
-                //binding.next.visibility= View.GONE
                 binding.progressBar.visibility = View.GONE
                 //newStartActivity()
                 if (result.exceptionMSG == "timeout") {
-                  /* if(Global.counter < 4){
-                        Global.counter++
-
-                   }else{*/
-                       Toast.makeText(
-                           this@CongregationActivity,
-                           "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
-                           Toast.LENGTH_LONG
-                       ).show()
-                      // newStartActivity()
+                    Toast.makeText(
+                        this@CongregationActivity,
+                        "Rendszerüzenet:\ntimeout" + result.exceptionMSG + "\n",
+                        Toast.LENGTH_LONG
+                    ).show()
                     newCongregationActivity()
-                    //}
-
-                }else{
+                } else {
                     Toast.makeText(
                         this@CongregationActivity,
                         "Ellenőrizd az internetkapcsolatot!\n\nLegutóbbi frissítés::\n" + Global.resultDate,
                         Toast.LENGTH_LONG
                     ).show()
-                    if(Global.resultValues.isNotEmpty())dataHandler(Global.resultValues)
+                    if (Global.resultValues.isNotEmpty()) dataHandler(Global.resultValues)
                     else newStartActivity()
 
                 }
@@ -133,48 +149,53 @@ class CongregationActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun viewChange() {
-        var spCongList= listOf("")
-        if (viewCounter==0) viewCounter = if(dateExam(congList[1][1])) 2 else 1
+        var spCongList = listOf("")
+        if (viewCounter == 0) viewCounter = if (dateExam(congList[1][1]) > 0) 2 else 1
         when (viewCounter) {
             1 -> {
-                binding.next.visibility= View.VISIBLE
-                binding.previous.visibility= View.GONE
+                binding.next.visibility = View.VISIBLE
+                binding.previous.visibility = View.GONE
             }
-            2 ->{
-                binding.previous.visibility= View.VISIBLE
-                binding.previous.visibility= View.VISIBLE
+            2 -> {
+                binding.previous.visibility = View.VISIBLE
+                binding.previous.visibility = View.VISIBLE
             }
-            7 ->{
-                binding.next.visibility= View.VISIBLE
+            7 -> {
+                binding.next.visibility = View.VISIBLE
             }
-            8 ->{
-                binding.next.visibility= View.GONE
-                binding.previous.visibility= View.VISIBLE
+            8 -> {
+                binding.next.visibility = View.GONE
+                binding.previous.visibility = View.VISIBLE
             }
         }
-        for(i in 0..congList[viewCounter].size.minus(1)) spCongList = spCongList + congList[viewCounter][i]
-        congAdapter = CongregationAdapter(this,spCongList)
+        for (i in 0..congList[viewCounter].size.minus(1)) spCongList =
+            spCongList + congList[viewCounter][i]
+        congAdapter = CongregationAdapter(this, spCongList)
         binding.congregationRecyclerview.adapter = congAdapter
     }
-    private fun dateExam(value:String):Boolean{
-        var dataDate=value
-        dataDate = dataDate.replace(".","")
+
+    private fun dateExam(value: String): Int {
+        var dataDate = value
+        dataDate = dataDate.replace(".", "")
         val dateFormat = SimpleDateFormat("MMdd")
         val currentDate = dateFormat.format(Date())
-        return if(dataDate < currentDate) true else false
+        return (currentDate.toInt() - dataDate.toInt())
     }
+
     private fun newStartActivity() {
         val activityToClose = this@CongregationActivity
         val intent = Intent(this@CongregationActivity, StartActivity::class.java)
         startActivity(intent)
         activityToClose.finishAffinity()
     }
+
     private fun newCongregationActivity() {
         val activityToClose = this@CongregationActivity
         val intent = Intent(this@CongregationActivity, CongregationActivity::class.java)
         startActivity(intent)
         activityToClose.finish()
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         newStartActivity()
