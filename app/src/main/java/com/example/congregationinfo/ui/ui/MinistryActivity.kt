@@ -56,7 +56,7 @@ class MinistryActivity : AppCompatActivity() {
                     }
                     i++
                 }
-                if (dateExam(firstSunday) > 7) {
+                if (dateExam(firstSunday) >7) {
                     newMinistryActivity()
                 } else {
                     val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
@@ -149,10 +149,10 @@ class MinistryActivity : AppCompatActivity() {
         binding.rvMinistry.adapter = ministryAdapter
     }
 
-    private fun dateExam(value: String): Int {
+    fun dateExam(value: String): Int {
         var dataDate = value
         dataDate = dataDate.replace(".", "")
-        val dateFormat = SimpleDateFormat("MMdd")
+        val dateFormat = SimpleDateFormat("yyyyMMdd")
         val currentDate = dateFormat.format(Date())
         return (currentDate.toInt() - dataDate.toInt())
     }

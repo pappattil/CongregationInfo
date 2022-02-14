@@ -73,7 +73,7 @@ class CongregationActivity : AppCompatActivity() {
             is CongregationResponseSuccess -> {
                 var firstSunday = result.data.values!![0][1]
                 val columnSize = (result.data.values.size).minus(1)
-                var i = 0
+                var i = 1
                 while (i < columnSize) {
                     val rowSize = (result.data.values[i].size).minus(1)
                     for (j in 0..rowSize) {
@@ -84,7 +84,7 @@ class CongregationActivity : AppCompatActivity() {
                     }
                     i++
                 }
-                if (dateExam(firstSunday) > 7) {
+                if (dateExam(firstSunday) >7) {
                     newCongregationActivity()
                 } else {
                     val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
@@ -174,10 +174,10 @@ class CongregationActivity : AppCompatActivity() {
         binding.congregationRecyclerview.adapter = congAdapter
     }
 
-    private fun dateExam(value: String): Int {
+    fun dateExam(value: String): Int {
         var dataDate = value
         dataDate = dataDate.replace(".", "")
-        val dateFormat = SimpleDateFormat("MMdd")
+        val dateFormat = SimpleDateFormat("yyyyMMdd")
         val currentDate = dateFormat.format(Date())
         return (currentDate.toInt() - dataDate.toInt())
     }
