@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    android:backgroundTint="#3949AB"
     tools:context=".ui.ui.StartActivity">
 
     <com.google.android.material.appbar.AppBarLayout
