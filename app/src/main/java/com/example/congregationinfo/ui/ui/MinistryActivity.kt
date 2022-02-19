@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
-class MinistryActivity : AppCompatActivity() {
+class MinistryActivity : AppCompatActivity(), DateHandler {
 
     private lateinit var binding: ActivityMinistryBinding
     private lateinit var ministryAdapter: MinistryAdapter
@@ -43,20 +43,7 @@ class MinistryActivity : AppCompatActivity() {
                 binding.pbMinistry.visibility = View.VISIBLE
             }
             is CongregationResponseSuccess -> {
-                var firstSunday = result.data.values!![0][1]
-                val columnSize = (result.data.values.size).minus(1)
-                var i = 0
-                while (i < columnSize) {
-                    val rowSize = (result.data.values[i].size).minus(1)
-                    for (j in 0..rowSize) {
-                        if (result.data.values[i][j] == ";") {
-                            firstSunday = result.data.values[i][j + 1]
-                            i = columnSize
-                        }
-                    }
-                    i++
-                }
-                if (dateExam(firstSunday) >7) {
+                if (dateExam(firstSun(result.data.values!!)) >7) {
                     newMinistryActivity()
                 } else {
                     val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
@@ -147,14 +134,6 @@ class MinistryActivity : AppCompatActivity() {
 
         ministryAdapter = MinistryAdapter(this, spMinistryList)
         binding.rvMinistry.adapter = ministryAdapter
-    }
-
-    fun dateExam(value: String): Int {
-        var dataDate = value
-        dataDate = dataDate.replace(".", "")
-        val dateFormat = SimpleDateFormat("yyyyMMdd")
-        val currentDate = dateFormat.format(Date())
-        return (currentDate.toInt() - dataDate.toInt())
     }
 
     override fun onBackPressed() {

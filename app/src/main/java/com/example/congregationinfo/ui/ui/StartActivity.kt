@@ -22,6 +22,7 @@ class StartActivity : AppCompatActivity() {
     var startMinistryList = listOf("")
     var startDate = " "
     var spStartCongList : List<StartData> = emptyList()
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStartBinding.inflate(layoutInflater)

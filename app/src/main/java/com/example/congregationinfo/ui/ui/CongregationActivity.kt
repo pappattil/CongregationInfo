@@ -18,7 +18,7 @@ import java.util.*
 import kotlin.concurrent.thread
 
 
-class CongregationActivity : AppCompatActivity() {
+class CongregationActivity : AppCompatActivity(), DateHandler {
 
     private lateinit var binding: ActivityCongregationBinding
     private lateinit var congAdapter: CongregationAdapter
@@ -71,20 +71,7 @@ class CongregationActivity : AppCompatActivity() {
             }
 
             is CongregationResponseSuccess -> {
-                var firstSunday = result.data.values!![0][1]
-                val columnSize = (result.data.values.size).minus(1)
-                var i = 1
-                while (i < columnSize) {
-                    val rowSize = (result.data.values[i].size).minus(1)
-                    for (j in 0..rowSize) {
-                        if (result.data.values[i][j] == ";") {
-                            firstSunday = result.data.values[i][j + 1]
-                            i = columnSize
-                        }
-                    }
-                    i++
-                }
-                if (dateExam(firstSunday) >7) {
+                if (dateExam(firstSun(result.data.values!!)) >7) {
                     newCongregationActivity()
                 } else {
                     val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
@@ -172,14 +159,6 @@ class CongregationActivity : AppCompatActivity() {
             spCongList + congList[viewCounter][i]
         congAdapter = CongregationAdapter(this, spCongList)
         binding.congregationRecyclerview.adapter = congAdapter
-    }
-
-    fun dateExam(value: String): Int {
-        var dataDate = value
-        dataDate = dataDate.replace(".", "")
-        val dateFormat = SimpleDateFormat("yyyyMMdd")
-        val currentDate = dateFormat.format(Date())
-        return (currentDate.toInt() - dataDate.toInt())
     }
 
     private fun newStartActivity() {
