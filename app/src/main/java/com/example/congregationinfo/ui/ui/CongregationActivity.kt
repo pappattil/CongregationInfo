@@ -1,7 +1,5 @@
 package com.example.congregationinfo.ui.ui
 
-
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -63,7 +61,7 @@ class CongregationActivity : AppCompatActivity(), DateHandler {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged", "SimpleDateFormat")
+
     private fun render(result: CongregationViewState) {
         when (result) {
             is InProgress -> {
@@ -71,10 +69,10 @@ class CongregationActivity : AppCompatActivity(), DateHandler {
             }
 
             is CongregationResponseSuccess -> {
-                if (dateExam(firstSun(result.data.values!!)) >7) {
+                if (dateExam(firstSun(result.data.values!!)) >6) {
                     newCongregationActivity()
                 } else {
-                    val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+                    val date: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
                     Global.resultDate = date
                     Global.resultValues = result.data.values
                     thread {
@@ -134,7 +132,6 @@ class CongregationActivity : AppCompatActivity(), DateHandler {
         viewChange()
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun viewChange() {
         var spCongList = listOf("")
         if (viewCounter == 0) viewCounter = if (dateExam(congList[1][1]) > 0) 2 else 1

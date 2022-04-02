@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.example.congregationinfo.R
 import com.example.congregationinfo.data.AppDatabase
 import com.example.congregationinfo.data.CongregationDataRoom
 import com.example.congregationinfo.data.Global
@@ -96,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.btnRegistration.visibility=View.GONE
                 binding.btnLogin.visibility=View.GONE
                 binding.loginTextView.visibility=View.VISIBLE
-                binding.loginTextView.text = "Túl sokszor adtál meg halytelen kódot!"
+                binding.loginTextView.text = getString(R.string.wrongCode)
             }
         }
     }
